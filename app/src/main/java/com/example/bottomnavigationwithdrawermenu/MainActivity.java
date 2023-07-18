@@ -18,7 +18,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +110,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String username = getIntent().getStringExtra("username");
 
         //Toast.makeText(MainActivity.this,username,Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Reemplaza "container" con el ID del contenedor donde se muestra el fragmento HomeFragment
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new HomeFragment())
+                        .commit();
+            }
+        }, 1000); // Delay de 2 segundos (ajústalo según tus necesidades)
 
         fab = findViewById(R.id.fab);
 
@@ -284,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showMercattendance() {
-
+        itemsList.clear();
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheetlayout);
@@ -306,23 +318,118 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //retrieveStores();
 // para que funcoina con el splask screen esta funcion deberia recolectar los datos de la stiendas de la base de datos
 
-        itemsList.add("1. FRANCO SUPERMERCADOS");
-        itemsList.add("2. SUPERMERCADOS PERUANOS");
-        itemsList.add("3. HIPERMERCADOS TOTTUS");
-        itemsList.add("4. CENCOSUD RETAIL");
-        itemsList.add("5. R-INTERNACIONALES - EL SUPER");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, itemsList){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextSize(16); // Cambiar el tamaño del texto aquí
+                return textView;
+            }
+        };
+
+        listView.setAdapter(adapter);
+
+        txtdeposito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //txtcobranza.setBackgroundResource(R.drawable.rectagle);
+                txtcobranza.setSelected(false);
+                txtinvenpedido.setSelected(false);
+                txtentrega.setSelected(false);
+                txtdeposito.setSelected(true);
+                itemsList.clear();
+
+                //dialog.dismiss();
+                //Toast.makeText(MainActivity.this,"Depósito",Toast.LENGTH_SHORT).show();
+                txtmotivo.setText("Depósito");
+                txtlocal.setText("##############");
+                txtsucursal.setText(" ");
+                itemsList.clear();
+                itemsList.add("1. Banco de Crédito del Perú");
+                itemsList.add("2. Scotiabank");
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
+
+        txtcobranza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtcobranza.setSelected(true);
+                txtinvenpedido.setSelected(false);
+                txtentrega.setSelected(false);
+                txtdeposito.setSelected(false);
+                itemsList.clear();
+                // Rest of your code...
+                txtmotivo.setText("Cobranza");
+                txtlocal.setText("##############");
+                txtsucursal.setText("");
+                itemsList.clear();
+                itemsList.add("1. Banco de Crédito del Perú");
+                itemsList.add("2. Scotiabank");
+
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        txtinvenpedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtcobranza.setSelected(false);
+                txtinvenpedido.setSelected(true);
+                txtentrega.setSelected(false);
+                txtdeposito.setSelected(false);
+                //dialog.dismiss();
+                //Toast.makeText(MainActivity.this,"Inventario / Pedido",Toast.LENGTH_SHORT).show();
+                txtmotivo.setText("Inventario Pedido");
+                txtlocal.setText("##############");
+                txtsucursal.setText("######");
+                itemsList.clear();
+                itemsList.add("1. FRANCO SUPERMERCADOS");
+                itemsList.add("2. SUPERMERCADOS PERUANOS");
+                itemsList.add("3. HIPERMERCADOS TOTTUS");
+                itemsList.add("4. CENCOSUD RETAIL");
+                itemsList.add("5. R-INTERNACIONALES - EL SUPER");
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        txtentrega.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtcobranza.setSelected(false);
+                txtinvenpedido.setSelected(false);
+                txtentrega.setSelected(true);
+                txtdeposito.setSelected(false);
+
+                //dialog.dismiss();
+                //Toast.makeText(MainActivity.this,"Entrega",Toast.LENGTH_SHORT).show();
+                txtmotivo.setText("Entrega Pedido");
+                txtlocal.setText("##############");
+                txtsucursal.setText("######");
+                itemsList.clear();
+                itemsList.add("1. FRANCO SUPERMERCADOS");
+                itemsList.add("2. SUPERMERCADOS PERUANOS");
+                itemsList.add("3. HIPERMERCADOS TOTTUS");
+                itemsList.add("4. CENCOSUD RETAIL");
+                itemsList.add("5. R-INTERNACIONALES - EL SUPER");
+                adapter.notifyDataSetChanged();
+            }
+        });
 
 
 
 
+/*
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itemsList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView textView = (TextView) super.getView(position, convertView, parent);
-                textView.setTextSize(12); // Cambiar el tamaño del texto aquí
+                textView.setTextSize(16); // Cambiar el tamaño del texto aquí
                 return textView;
             }
-        };
+        };*/
 
         listView.setAdapter(adapter);
 
@@ -480,60 +587,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     });
                     builder.create().show();
                 }
-            }
-        });
-
-
-
-
-
-        txtcobranza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //dialog.dismiss();
-                //Toast.makeText(MainActivity.this,"Cobranza",Toast.LENGTH_SHORT).show();
-                txtmotivo.setText("Cobranza");
-                txtlocal.setText("Entidad Bancaria");
-                txtsucursal.setText(" ");
-            }
-        });
-
-        txtinvenpedido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //dialog.dismiss();
-                //Toast.makeText(MainActivity.this,"Inventario / Pedido",Toast.LENGTH_SHORT).show();
-                txtmotivo.setText("Inventario Pedido");
-                txtlocal.setText("##############");
-                txtsucursal.setText("######");
-
-            }
-        });
-
-        txtentrega.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //dialog.dismiss();
-                //Toast.makeText(MainActivity.this,"Entrega",Toast.LENGTH_SHORT).show();
-                txtmotivo.setText("Entrega Pedido");
-                txtlocal.setText("##############");
-                txtsucursal.setText("######");
-
-            }
-        });
-
-        txtdeposito.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //dialog.dismiss();
-                //Toast.makeText(MainActivity.this,"Depósito",Toast.LENGTH_SHORT).show();
-                txtmotivo.setText("Depósito");
-                txtlocal.setText("Entidad Bancaria");
-                txtsucursal.setText(" ");
-
+                if (itemsList.get(position).equals("1. Banco de Crédito del Perú")) {
+                    String texto = itemsList.get(position).substring(itemsList.get(position).indexOf(".")+2);
+                    txtlocal.setText(texto);
+                }
+                if (itemsList.get(position).equals("2. Scotiabank")) {
+                    String texto = itemsList.get(position).substring(itemsList.get(position).indexOf(".")+2);
+                    txtlocal.setText(texto);
+                }
             }
         });
 
@@ -544,8 +605,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.dismiss();
             }
         });
-        Button btnLog = dialog.findViewById(R.id.btn);
 
+
+
+
+        Button btnLog = dialog.findViewById(R.id.btn);
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -554,17 +618,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 final String Txtloc = txtlocal.getText().toString();
                 final String Txtsuc = txtsucursal.getText().toString();
 
-                if (Txtmot.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Ingrese Motivo", Toast.LENGTH_SHORT).show();
+                if (Txtmot.isEmpty() || Txtmot.equals("######")) {
+                    //Toast.makeText(MainActivity.this, "Ingrese Motivo", Toast.LENGTH_SHORT).show();
+                    //Toasty.warning(getApplicationContext(), "Mensaje de advertencia", Toast.LENGTH_SHORT).show();
+                    // -----   CUSTOM ALERTOAS
+                    LayoutInflater inflater = getLayoutInflater();
+                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
+                    // Configurar el texto del Toast
+                    TextView textView = toastLayout.findViewById(R.id.text_view);
+                    textView.setText("           ✘ Ingrese Motivo        ");
+                    // Crear y mostrar el Toast personalizado
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+                    ; // Establecer la posición en la parte superior y centrada
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(toastLayout);
+                    toast.show();
+
                     return;
                 } else if (Txtloc.equals("##############")) {
-                    Toast.makeText(MainActivity.this, "Ingrese Local", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Ingrese Local", Toast.LENGTH_SHORT).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
+                    // Configurar el texto del Toast
+                    TextView textView = toastLayout.findViewById(R.id.text_view);
+                    textView.setText("           ✘ Ingrese Local        ");
+                    // Crear y mostrar el Toast personalizado
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+                    ; // Establecer la posición en la parte superior y centrada
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(toastLayout);
+                    toast.show();
+
                     return;
                 } else if (Txtsuc.equals("######")) {
-                    Toast.makeText(MainActivity.this, "Ingrese Sucursal", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Ingrese Sucursal", Toast.LENGTH_SHORT).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
+                    // Configurar el texto del Toast
+                    TextView textView = toastLayout.findViewById(R.id.text_view);
+                    textView.setText("           ✘ Ingrese Sucursal        ");
+                    // Crear y mostrar el Toast personalizado
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+                    ; // Establecer la posición en la parte superior y centrada
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(toastLayout);
+                    toast.show();
                     return;
                 } else {
                     if(Txtmot.equals("Cobranza") || Txtmot.equals("Depósito") ){
+
                         PremiumFragment fragment = new PremiumFragment();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -658,5 +763,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
     }
-
 }

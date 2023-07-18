@@ -93,7 +93,7 @@
 
         </LinearLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 
@@ -179,9 +179,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 

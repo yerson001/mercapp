@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
+    android:background="@drawable/snipper"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="18dp"
+            android:layout_height="97dp"
+            android:id="@+id/id_txt_r"
+            android:text="1200"
+            android:gravity="center_vertical|center"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/rectangle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="5dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▶"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:textColor="@color/verde"
+                />
+            <TextView
+                android:id="@+id/fecha_txt_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2023/12/12"
+                android:layout_marginStart="2dp"
+                android:textStyle="bold"
+                android:textSize="10dp"
+                android:textColor="@color/verde"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+
+
+                <TextView
+                    android:id="@+id/fecha_txt_rn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
+                    android:textColor="#B71C1C"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="18dp"
+                    android:text="2023/12/122023/12/12"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
+                    android:textColor="#B7A21C"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="3dp"
+                    android:text="🟨"
+
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+
+<!-- 🟥🟧🟨🟩🟦🟪⬛️⬜️🟫-->
+
+
+        <TextView
+            android:id="@+id/local_txt_r"
+            android:layout_width="wrap_content"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hipermercados Tottus"
+            />
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/motivo_txt_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inventario"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:textSize="12dp"
+                android:layout_marginStart="0dp"
+                android:layout_alignParentRight="true"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/tiempo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
+                    android:textColor="#4A148C"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="28dp"
+                    android:text="Estado" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="⏰ "
+                android:textStyle="bold"
+                android:textSize="18dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/horas_txt"
+                android:layout_marginTop="7dp"
+                android:text="24min"
+                android:layout_marginStart="30dp"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                />
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_finalizar"
+            android:layout_height="35dp"
+            android:text="Finalizar"
+            android:layout_marginTop="5dp"
+            android:textColor="#EDF1F3"
+            android:layout_alignParentRight="true"
+            android:textSize="10dp"
+            android:background="#F64747"
+            />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

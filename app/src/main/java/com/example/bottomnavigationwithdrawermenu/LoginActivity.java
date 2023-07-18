@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -74,10 +77,37 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Cargando...");
 
         if (username.isEmpty()) {
-            Toast.makeText(this, "Ingrese su Usuario", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Ingrese su Usuario", Toast.LENGTH_SHORT).show();
+
+            LayoutInflater inflater = getLayoutInflater();
+            View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
+            // Configurar el texto del Toast
+            TextView textView = toastLayout.findViewById(R.id.text_view);
+            textView.setText("           ✘ Ingrese su Usuario        ");
+            // Crear y mostrar el Toast personalizado
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+            ; // Establecer la posición en la parte superior y centrada
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(toastLayout);
+            toast.show();
+
             return;
         } else if (password.isEmpty()) {
-            Toast.makeText(this, "Ingrese su Contraseña", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Ingrese su Contraseña", Toast.LENGTH_SHORT).show();
+            LayoutInflater inflater = getLayoutInflater();
+            View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
+            // Configurar el texto del Toast
+            TextView textView = toastLayout.findViewById(R.id.text_view);
+            textView.setText("           ✘ Ingrese su Contraseña       ");
+            // Crear y mostrar el Toast personalizado
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+            ; // Establecer la posición en la parte superior y centrada
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(toastLayout);
+            toast.show();
+
             return;
         } else {
             progressDialog.show();
@@ -87,7 +117,21 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             if (response.equalsIgnoreCase("Usuario y contraseña válidos.")) {
-                                Toast.makeText(LoginActivity.this, "Sesión Iniciada", Toast.LENGTH_SHORT).show();
+
+                                LayoutInflater inflater = getLayoutInflater();
+                                View toastLayout = inflater.inflate(R.layout.toast_customg, findViewById(R.id.toast_layout_rootg));
+                                // Configurar el texto del Toast
+                                TextView textView = toastLayout.findViewById(R.id.text_view);
+                                textView.setText("           ✘ Sesión Iniciada        ");
+                                // Crear y mostrar el Toast personalizado
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+                                ; // Establecer la posición en la parte superior y centrada
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setView(toastLayout);
+                                toast.show();
+
+                                //Toast.makeText(LoginActivity.this, "Sesión Iniciada", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("username", username);// In this part our send the username to mainactivity

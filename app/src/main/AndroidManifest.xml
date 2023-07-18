@@ -19,6 +19,9 @@
         android:theme="@style/Theme.BottomNavigationWithDrawerMenu"
         tools:targetApi="31">
         <activity
+            android:name=".Mercaderista.SummaryActivity"
+            android:exported="false" />
+        <activity
             android:name=".Mercaderista.ProductListActivity"
             android:exported="false" />
         <activity

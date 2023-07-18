@@ -66,123 +66,137 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         >
 
-        <LinearLayout
-            android:id="@+id/txt_cobranza"
-            android:orientation="horizontal"
-            android:layout_width="150dp"
-            android:layout_height="35dp"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:paddingRight="10dp"
-            >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_currency_exchange_24"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cobranza"
-                android:textColor="#0D47A1"
-                android:layout_marginLeft="10dp"
-                android:textSize="12sp"/>
-        </LinearLayout>
+
 
         <LinearLayout
-            android:id="@+id/txt_deposito"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="7dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_assured_workload_24"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Depósito"
-                android:textColor="#0D47A1"
-                android:layout_marginLeft="10dp"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-
-        >
-
-        <LinearLayout
-            android:id="@+id/txt_entrega_pedido"
+            android:layout_height="37dp"
             android:orientation="horizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:layout_marginStart="10dp"
-            android:paddingBottom="5dp">
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_delivery_dining_24"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Entrega Pedido"
-                android:textColor="#0D47A1"
-                android:layout_marginLeft="10dp"
-                android:textSize="12sp"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/txt_inve_pedido"
-            android:orientation="horizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
             >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_domain_add_24"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inventario / Pedido"
-                android:textColor="#0D47A1"
-                android:layout_marginLeft="10dp"
-                android:textSize="12sp"/>
+
+            <LinearLayout
+                android:id="@+id/txt_cobranza"
+                android:orientation="horizontal"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="5dp"
+
+
+                android:paddingRight="10dp"
+                android:background="@drawable/snipperg"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_currency_exchange_24"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cobranza"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#0D47A1"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/txt_deposito"
+                android:orientation="horizontal"
+                android:layout_width="140dp"
+                android:layout_height="27dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingTop="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/snipperp"
+                android:paddingBottom="7dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_assured_workload_24"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Depósito"
+                    android:textColor="#0D47A1"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"/>
+            </LinearLayout>
         </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:id="@+id/txt_entrega_pedido"
+                android:orientation="horizontal"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/snippers"
+                android:paddingBottom="5dp">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_delivery_dining_24"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Entrega/Pedido"
+                    android:textColor="#0D47A1"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/txt_inve_pedido"
+                android:orientation="horizontal"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/snipperv"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_domain_add_24"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inv /Pedido"
+                    android:textColor="#0D47A1"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
@@ -191,6 +205,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="11dp"
+        android:layout_marginTop="5dp"
         android:background="#DEE4E4"
         >
         <TextView
@@ -212,22 +227,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="5dp"
         >
-    <ListView
-        android:id="@+id/myListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/border"
-        android:layout_marginEnd="50dp"
-        />
+        <ListView
+            android:id="@+id/myListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            />
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/ic_block_list" />
     </RelativeLayout>
 
 
@@ -252,7 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="--------"
+            android:text="######"
             android:textSize="8dp"
             />
     </LinearLayout>
@@ -278,7 +284,7 @@
             android:id="@+id/txtlocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--------------------"
+            android:text="##############"
             android:layout_marginStart="10dp"
             android:textSize="8dp"
             />
@@ -287,7 +293,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="------------"
+            android:text="######"
             android:textSize="8dp"
             />
     </LinearLayout>
