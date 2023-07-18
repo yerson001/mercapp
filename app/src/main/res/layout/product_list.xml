@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginTop="7dp"
+    android:background="@drawable/snipper1"
+    android:layout_height="65dp"
+    android:layout_marginEnd="1dp"
+    android:layout_marginStart="1dp"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="45dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_height="57dp"
+        android:src="@drawable/ic_launcher_background" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="27dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/rectagle"
+                android:gravity="center_vertical|center"
+                android:text="1111"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PIMIENTA BLANCA MOLIDA FRASCO X 50 GRS"
+                android:textColor="@color/black"
+                android:textSize="13dp"
+                android:translationX="8dp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Código"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cod_ref"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cod_barras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-40dp"
+                android:layout_marginTop="16dp"
+                android:imeOptions="actionNext"
+                android:text="7750552000081"
+                android:textColor="@color/azul"
+                android:textSize="7sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/inventario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="inventario"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:textColor="@color/azul"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/pedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="pedido"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:textColor="@color/violeta"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="55dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:shadowColor="#DCD7D5"
+                        android:text="+"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textColorHighlight="#54BC62"
+                        android:textColorLink="#6EDC61"
+                        android:textSize="17dp"
+                        app:icon="@drawable/baseline_add_task_24"
+                        app:strokeColor="#954747"
+                        android:background="#3F51B5"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="15dp"
+                        />
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
+
+<!--
+            <Button
+                android:id="@+id/button"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:shadowColor="#9F522E"
+                android:text="+"
+                android:textAlignment="center"
+                android:textColorHighlight="#54BC62"
+                android:textColorLink="#6EDC61"
+                android:textSize="17dp"
+                app:icon="@drawable/baseline_add_task_24"
+                app:strokeColor="#954747" />
+-->
