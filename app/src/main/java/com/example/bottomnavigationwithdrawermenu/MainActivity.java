@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -12,11 +14,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -31,6 +39,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -175,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onClick(View view) {
                     showMercattendance();
+                    createNotificationChannel();
+                    showNotification();
                 }
             });
         }else{
@@ -307,9 +318,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView txtmotivo = dialog.findViewById(R.id.txtmotivo);
         TextView txtlocal = dialog.findViewById(R.id.txtlocal);
         TextView txtsucursal = dialog.findViewById(R.id.txtsucursal);
+        RelativeLayout cancel = dialog.findViewById(R.id.cal);
 
 
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+        ImageView cancelButton2 = dialog.findViewById(R.id.cancelButton2);
 
         LinearLayout suscursales = dialog.findViewById(R.id.layoutVideo);
 
@@ -606,6 +619,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        cancelButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
 
 
 
@@ -762,5 +790,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+    }
+
+    private void showNotification() {
+        // Crear un NotificationCompat.Builder
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
+                .setSmallIcon(R.drawable.notifications_icn)
+                .setContentTitle("Registro")
+                .setContentText("Pulse aqui para finalizar registro")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Crear un intent para la acción al hacer clic en la notificación
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        // Crear un intent para la acción personalizada
+        Intent actionIntent = new Intent(this, NotificationActionReceiver.class);
+        actionIntent.setAction("ACTION_FINISH_NOTIFICATION");
+        PendingIntent actionPendingIntent = PendingIntent.getBroadcast(this, 0, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Agregar la acción personalizada al builder
+        builder.addAction(R.drawable.baseline_notifications_off_24, "Finalizar", actionPendingIntent);
+
+        // Obtener el administrador de notificaciones
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        // Mostrar la notificación
+        notificationManager.notify(1, builder.build());
+    }
+
+    public class NotificationActionReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if ("ACTION_FINISH_NOTIFICATION".equals(action)) {
+                // Acciones a realizar al hacer clic en la acción personalizada
+                Toast.makeText(context, "Notificación finalizada", Toast.LENGTH_SHORT).show();
+                // Aquí puedes realizar cualquier otra acción deseada
+            }
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel Name";
+            String description = "Channel Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
