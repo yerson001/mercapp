@@ -1,5 +1,6 @@
 package com.example.bottomnavigationwithdrawermenu.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.bottomnavigationwithdrawermenu.MainActivity;
+import com.example.bottomnavigationwithdrawermenu.Mercaderista.SummaryActivity;
 import com.example.bottomnavigationwithdrawermenu.R;
 
 public class HomeFragment extends Fragment {
@@ -37,6 +39,19 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(), "Promotor", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        RelativeLayout button2 = rootView.findViewById(R.id.mecaderistabtn);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Acciones a realizar cuando se haga clic en el botón
+                //Toast.makeText(getActivity(), "Mercaderista", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), SummaryActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         return rootView;
     }
