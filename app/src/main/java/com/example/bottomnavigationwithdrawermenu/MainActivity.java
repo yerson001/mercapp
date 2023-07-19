@@ -1,27 +1,34 @@
 package com.example.bottomnavigationwithdrawermenu;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -53,9 +60,11 @@ import com.example.bottomnavigationwithdrawermenu.Fragment.PremiumFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.SettingsFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.SupportFragment;
 import com.example.bottomnavigationwithdrawermenu.Mercaderista.ProductListActivity;
+import com.example.bottomnavigationwithdrawermenu.Notification.Receiver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,6 +81,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //StoreAdapter adapter;
     String url = "https://emaransac.com/mercapp/get_stores.php";
     FloatingActionButton fab;
+
+    private final static String CHANNEL_ID = "1";
+    private final static String CHANNEL_NAME = "Notification Procedures";
+    private final static int NOTIFICATION_ID = 1;
+    NotificationCompat.Builder builder;
+    NotificationManagerCompat compat;
+    DrawerLayout drawer;
 
 
 
@@ -141,7 +157,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         // DrawerLayout
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
+
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -184,8 +203,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onClick(View view) {
                     showMercattendance();
-                    createNotificationChannel();
-                    showNotification();
                 }
             });
         }else{
@@ -703,19 +720,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.fragment_container, fragment);
                         fragmentTransaction.commit();
+                        //createNotificationChannel();
+                        //showNotification();
+                        sendNotification("23");
                         dialog.dismiss();
                     }else{
                         Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
                         intent.putExtra("tienda", Txtloc);
                         intent.putExtra("sucursal", Txtsuc);
                         intent.putExtra("id", Integer.toString(numdb));
+                        //Crete a notification
+                        //createNotificationChannel();
+                        //showNotification();
+                        sendNotification("23");
                         //InsertarRegistro();
                         startActivity(intent);
+
                     }
 
                 }
 
 
+            }
+
+
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        //crea la notificacion
+
+    }
+
+    private void showPromattendance() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottomsheetlayoutpro);
+
+        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
 
@@ -727,7 +778,97 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    /*
+
+    public void sendNotification(String id) {
+        // Action button
+        Intent actionIntent = new Intent(MainActivity.this, Receiver.class);
+        actionIntent.putExtra("toast", id);
+        PendingIntent actionPending = PendingIntent.getBroadcast(MainActivity.this, 1, actionIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        // Crear un PendingIntent vacío para el botón "Cerrar"
+        PendingIntent emptyPendingIntent = PendingIntent.getActivity(MainActivity.this, 0, new Intent(), PendingIntent.FLAG_IMMUTABLE);
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.registro);
+        String text = getResources().getString(R.string.big_text);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(channel);
+        }
+
+        Intent deleteIntent = new Intent(MainActivity.this, Receiver.class);
+        PendingIntent deletePendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, deleteIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.notifications_icn)
+                .setContentTitle("Notificación Registro")
+                .setContentText("Haga clic en finalizar para guardar su registro.")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .addAction(R.drawable.notifications_icn, "Finalizar", actionPending)
+                .setDeleteIntent(deletePendingIntent)
+                .setLargeIcon(bitmap)
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
+                .setOngoing(true); // Evitar que la notificación sea deslizable
+
+        compat = NotificationManagerCompat.from(MainActivity.this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+                    Snackbar.make(drawer, "Please allow the permission to take notification", Snackbar.LENGTH_LONG)
+                            .setAction("Allow", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 3);
+                                }
+                            })
+                            .show();
+                } else {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 3);
+                }
+            } else {
+                compat.notify(NOTIFICATION_ID, builder.build());
+            }
+        } else {
+            compat.notify(NOTIFICATION_ID, builder.build());
+        }
+    }
+
+
+
+
+
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 3 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+            compat.notify(NOTIFICATION_ID,builder.build());
+
+        }else {
+
+            Snackbar.make(
+                    drawer,
+                    "Please allow the permission to take notification",
+                    Snackbar.LENGTH_LONG).setAction("Allow", new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+                @Override
+                public void onClick(View v) {
+                    ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.POST_NOTIFICATIONS},3);
+                }
+            }).show();
+
+        }
+
+    }
+
+
+        /*
     public void retrieveStores(){
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
@@ -767,81 +908,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         requestQueue.add(request);
     }
 */
-
-
-    private void showPromattendance() {
-
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottomsheetlayoutpro);
-
-        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-    }
-
-    private void showNotification() {
-        // Crear un NotificationCompat.Builder
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
-                .setSmallIcon(R.drawable.notifications_icn)
-                .setContentTitle("Registro")
-                .setContentText("Pulse aqui para finalizar registro")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        // Crear un intent para la acción al hacer clic en la notificación
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-
-        // Crear un intent para la acción personalizada
-        Intent actionIntent = new Intent(this, NotificationActionReceiver.class);
-        actionIntent.setAction("ACTION_FINISH_NOTIFICATION");
-        PendingIntent actionPendingIntent = PendingIntent.getBroadcast(this, 0, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Agregar la acción personalizada al builder
-        builder.addAction(R.drawable.baseline_notifications_off_24, "Finalizar", actionPendingIntent);
-
-        // Obtener el administrador de notificaciones
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-
-        // Mostrar la notificación
-        notificationManager.notify(1, builder.build());
-    }
-
-    public class NotificationActionReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if ("ACTION_FINISH_NOTIFICATION".equals(action)) {
-                // Acciones a realizar al hacer clic en la acción personalizada
-                Toast.makeText(context, "Notificación finalizada", Toast.LENGTH_SHORT).show();
-                // Aquí puedes realizar cualquier otra acción deseada
-            }
-        }
-    }
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Channel Name";
-            String description = "Channel Description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 }
