@@ -273,14 +273,14 @@ public class SummaryActivity extends AppCompatActivity {
         requestQueue.add(request);
         retrieveData(url);
     }
-    /*
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username", "mercaderista");// In this part our send the username to mainactivity
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         // Finalizar la actividad actual
         finish();
     }
-    */
-
 }

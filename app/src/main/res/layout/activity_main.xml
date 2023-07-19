@@ -61,7 +61,40 @@
                 android:background="#5ccda7"
                 android:elevation="4dp"
                 android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <!-- Aquí puedes colocar otros elementos de la barra de herramientas si los hay -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="❍"
+                        android:textStyle="bold"
+                        android:textColor="#01579B"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/text_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Promotor"
+                        android:layout_gravity="center"
+
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="16dp"/>
+
+                </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
 
             <FrameLayout
                 android:id="@+id/fragment_container"

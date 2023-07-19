@@ -31,12 +31,20 @@ public class PremiumFragment extends Fragment {
     private RecyclerView recyclerView;
     Register reg;
     DetailAdapter adapter_;
+    String user="";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_premium, container, false);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            String param1 = args.getString("param1");
+            user = param1;
+
+            Toast.makeText(getContext(),param1,Toast.LENGTH_LONG).show();
+        }
 
         recyclerView = rootView.findViewById(R.id.myregister);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -44,7 +52,12 @@ public class PremiumFragment extends Fragment {
         adapter_ = new DetailAdapter(requireContext(), RegisterList);
         recyclerView.setAdapter(adapter_);
         //adapter_.setButtonClickListener(this);
-        retrieveData();
+        if(user.equals("promotor")){
+
+        }else{
+            retrieveData();
+        }
+
 
         return rootView;
     }

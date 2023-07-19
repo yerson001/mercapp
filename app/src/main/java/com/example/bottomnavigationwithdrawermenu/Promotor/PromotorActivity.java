@@ -60,6 +60,7 @@ public class PromotorActivity extends AppCompatActivity {
         // Aquí puedes redirigir al MainActivity
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("username", "promotor");// In this part our send the username to mainactivity
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish(); // Opcional: finaliza la actividad actual si deseas que el fragmento no sea accesible desde el botón "Back"
     }

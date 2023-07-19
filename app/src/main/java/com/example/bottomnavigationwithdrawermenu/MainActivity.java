@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NotificationCompat.Builder builder;
     NotificationManagerCompat compat;
     DrawerLayout drawer;
+    String username="";
 
 
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
 
         //Toast.makeText(MainActivity.this,username,Toast.LENGTH_SHORT).show();
 
@@ -146,6 +147,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
             }
         }, 1000); // Delay de 2 segundos (ajústalo según tus necesidades)
+
+
+        TextView TXT_user = findViewById(R.id.text_user);
+        TXT_user.setText(username);
+
 
         fab = findViewById(R.id.fab);
 
