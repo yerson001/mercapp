@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
             // Configurar el texto del Toast
             TextView textView = toastLayout.findViewById(R.id.text_view);
-            textView.setText("           ✘ Ingrese su Usuario        ");
+            textView.setText("\n           ⚠️ Ingrese su Usuario        \n");
             // Crear y mostrar el Toast personalizado
             Toast toast = new Toast(getApplicationContext());
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
             // Configurar el texto del Toast
             TextView textView = toastLayout.findViewById(R.id.text_view);
-            textView.setText("           ✘ Ingrese su Contraseña       ");
+            textView.setText("\n           ⚠️ Ingrese su Contraseña       \n");
             // Crear y mostrar el Toast personalizado
             Toast toast = new Toast(getApplicationContext());
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                                 View toastLayout = inflater.inflate(R.layout.toast_customg, findViewById(R.id.toast_layout_rootg));
                                 // Configurar el texto del Toast
                                 TextView textView = toastLayout.findViewById(R.id.text_view);
-                                textView.setText("           ✘ Sesión Iniciada        ");
+                                textView.setText("\n           ✅ Sesión Iniciada        \n");
                                 // Crear y mostrar el Toast personalizado
                                 Toast toast = new Toast(getApplicationContext());
                                 toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)

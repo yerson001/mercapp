@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.bottomnavigationwithdrawermenu.MainActivity;
 import com.example.bottomnavigationwithdrawermenu.Mercaderista.SummaryActivity;
+import com.example.bottomnavigationwithdrawermenu.Promotor.PromotorActivity;
 import com.example.bottomnavigationwithdrawermenu.R;
 
 public class HomeFragment extends Fragment {
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 // Acciones a realizar cuando se haga clic en el botón
                 Toast.makeText(getActivity(), "Promotor", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), PromotorActivity.class);
+                startActivity(intent);
             }
         });
 

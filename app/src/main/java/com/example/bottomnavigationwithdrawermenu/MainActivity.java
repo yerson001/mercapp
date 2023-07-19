@@ -61,6 +61,7 @@ import com.example.bottomnavigationwithdrawermenu.Fragment.SettingsFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.SupportFragment;
 import com.example.bottomnavigationwithdrawermenu.Mercaderista.ProductListActivity;
 import com.example.bottomnavigationwithdrawermenu.Notification.Receiver;
+import com.example.bottomnavigationwithdrawermenu.Promotor.PromotorActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -671,7 +672,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
                     // Configurar el texto del Toast
                     TextView textView = toastLayout.findViewById(R.id.text_view);
-                    textView.setText("           ✘ Ingrese Motivo        ");
+                    textView.setText("\n           ⚠️ Ingrese Motivo        \n");
                     // Crear y mostrar el Toast personalizado
                     Toast toast = new Toast(getApplicationContext());
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
@@ -687,7 +688,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
                     // Configurar el texto del Toast
                     TextView textView = toastLayout.findViewById(R.id.text_view);
-                    textView.setText("           ✘ Ingrese Local        ");
+                    textView.setText("\n           ⚠️ Ingrese Local        \n");
                     // Crear y mostrar el Toast personalizado
                     Toast toast = new Toast(getApplicationContext());
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
@@ -703,7 +704,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
                     // Configurar el texto del Toast
                     TextView textView = toastLayout.findViewById(R.id.text_view);
-                    textView.setText("           ✘ Ingrese Sucursal        ");
+                    textView.setText("\n           ⚠️️ Ingrese Sucursal        \n");
                     // Crear y mostrar el Toast personalizado
                     Toast toast = new Toast(getApplicationContext());
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
@@ -757,25 +758,88 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showPromattendance() {
 
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottomsheetlayoutpro);
+        final Dialog dialogp = new Dialog(this);
+        dialogp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogp.setContentView(R.layout.bottomsheetlayoutpro);
 
-        ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
+        RelativeLayout txtincio = dialogp.findViewById(R.id.txt_inicio);
+        RelativeLayout txtdurante = dialogp.findViewById(R.id.txt_durante);
+        RelativeLayout txtfin = dialogp.findViewById(R.id.txt_fin);
+
+        ImageView cancelButton = dialogp.findViewById(R.id.cancelButton);
+        ImageView cancelButtonp = dialogp.findViewById(R.id.cancelButtonp);
+
+        TextView txtmotivop = dialogp.findViewById(R.id.txtmotivop);
+        Button btnLogh = dialogp.findViewById(R.id.btnLoginh);
+
+        txtincio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {txtmotivop.setText("Inicio");}
+        });
+
+        txtdurante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {txtmotivop.setText("Durante el día");}
+        });
+
+        txtfin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {txtmotivop.setText("Fin");}
+        });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                dialogp.dismiss();
             }
         });
 
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        cancelButtonp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogp.dismiss();
+            }
+        });
 
+
+        btnLogh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this,"funciona",Toast.LENGTH_SHORT).show();
+                final String Txtmot = txtmotivop.getText().toString();
+                if (Txtmot.isEmpty() || Txtmot.equals("######")) {
+                    //Toast.makeText(MainActivity.this, "Ingrese Motivo", Toast.LENGTH_SHORT).show();
+                    //Toasty.warning(getApplicationContext(), "Mensaje de advertencia", Toast.LENGTH_SHORT).show();
+                    // -----   CUSTOM ALERTOAS
+                    LayoutInflater inflater = getLayoutInflater();
+                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
+                    // Configurar el texto del Toast
+                    TextView textView = toastLayout.findViewById(R.id.text_view);
+                    textView.setText("\n           ⚠️ Ingrese Motivo        \n");
+                    // Crear y mostrar el Toast personalizado
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+                    ; // Establecer la posición en la parte superior y centrada
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(toastLayout);
+                    toast.show();
+                    return;
+                }else{
+                    Intent intent = new Intent(MainActivity.this, PromotorActivity.class);
+                    sendNotification("23");
+                    //InsertarRegistro();
+                    startActivity(intent);
+                    return;
+                }
+            }
+        });
+
+
+        dialogp.show();
+        dialogp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogp.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialogp.getWindow().setGravity(Gravity.BOTTOM);
     }
 
 
@@ -806,7 +870,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setContentText("Haga clic en finalizar para guardar su registro.")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
-                .addAction(R.drawable.notifications_icn, "Finalizar", actionPending)
+                .addAction(R.drawable.baseline_notifications_off_24, "Finalizar", actionPending)
                 .setDeleteIntent(deletePendingIntent)
                 .setLargeIcon(bitmap)
                 .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))

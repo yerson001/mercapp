@@ -6,12 +6,19 @@
     android:background="@drawable/dialogbkg"
     >
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_remove"
-        android:layout_gravity="center|top"
-        android:scaleType="centerCrop"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:id="@+id/cal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="70dp"
+            android:id="@+id/cancelButtonp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_remove"
+            android:layout_gravity="center|top"
+            android:scaleType="centerCrop"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,73 +34,229 @@
             android:padding="8dp"
             android:textColor="@color/lavender"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="5dp"
-            android:textSize="25dp" />
-
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_clear"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="0dp"
                 android:layout_marginTop="8dp"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/cancelButton"/>
+                android:id="@+id/cancelButton"
+                />
         </RelativeLayout>
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="11dp"
+        android:background="#DEE4E4"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Motivo"
+            android:textStyle="bold"
+            android:textSize="8dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:gravity="end"
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        >
+
+        <RelativeLayout
+            android:id="@+id/txt_inicio"
+            android:orientation="horizontal"
+            android:layout_width="90dp"
+            android:layout_height="37dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/snipperg"
+            android:layout_alignParentStart="true"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/baseline_start_24"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="𝐈𝐧𝐢𝐜𝐢𝐨"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:textColor="#0D47A1"
+                android:layout_marginStart="30dp"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/txt_durante"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/snipperp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="7dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_wb_sunny_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="3dp"
+                android:text="𝐃𝐮𝐫𝐚𝐧𝐭𝐞 𝐞𝐥 𝐃𝐢́a"
+                android:textStyle="bold"
+                android:textColor="#0D47A1"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/txt_fin"
+            android:orientation="horizontal"
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/snipperg"
+            android:layout_alignParentEnd="true"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/baseline_stop_circle_24"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="𝐅𝐈𝐍"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:textColor="#0D47A1"
+                android:layout_marginStart="30dp"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="11dp"
+        android:layout_marginTop="5dp"
+        android:background="#DEE4E4"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Resumen"
+            android:textStyle="bold"
+            android:textSize="8dp"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:layout_marginEnd="20dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="7dp"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="𝐌𝐎𝐓𝐈𝐕𝐎:"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/txtmotivop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="######"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:textSize="12dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#DEE4E4"
+        android:layout_marginBottom="7dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textStyle="bold"
+            android:textSize="8dp"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:layout_marginEnd="20dp"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/btnLoginh"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:text="REGISTRAR"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
             android:layout_gravity="center"
-            >
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="180dp"
-            android:layout_marginStart="10dp"
-            android:layout_height="wrap_content"
-            android:hint="Motivo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-            >
-            <AutoCompleteTextView
-                android:id="@+id/motivo_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:inputType="none"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:gravity="center"
+            />
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:text="REGISTRAR"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/white"
-                android:layout_gravity="center"
-                android:layout_alignParentRight="true"
-                />
-
-        </RelativeLayout>
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"

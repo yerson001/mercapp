@@ -106,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cobranza"
+                    android:text="𝐂𝐨𝐛𝐫𝐚𝐧𝐳𝐚"
                     android:layout_marginTop="5dp"
                     android:textColor="#0D47A1"
                     android:layout_marginLeft="10dp"
@@ -133,7 +133,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Depósito"
+                    android:text="𝐃𝐞𝐩𝐨́𝐬𝐢𝐭𝐨"
                     android:textColor="#0D47A1"
                     android:layout_marginLeft="10dp"
                     android:textSize="12sp"/>
@@ -169,7 +169,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Entrega/Pedido"
+                    android:text="𝐄𝐧𝐭𝐫𝐞𝐠𝐚 /𝐏𝐞𝐝𝐢𝐝𝐨"
                     android:textColor="#0D47A1"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
@@ -195,7 +195,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Inv /Pedido"
+                    android:text="𝐈𝐧𝐯 /𝐏𝐞𝐝𝐢𝐝𝐨"
                     android:textColor="#0D47A1"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
@@ -255,7 +255,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Motivo:"
+            android:text="𝐌𝐎𝐓𝐈𝐕𝐎:"
             android:textSize="12dp"
             android:textStyle="bold"
             />
