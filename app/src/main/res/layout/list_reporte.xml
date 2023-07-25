@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="70dp"
+            android:id="@+id/id_txt"
+            android:text="1200"
+            android:gravity="center_vertical|center"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/rectangle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="5dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/fecha_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2023/12/12"
+                android:textStyle="bold"
+                android:textSize="10dp"
+                android:textColor="@android:color/holo_red_dark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+            <TextView
+                android:id="@+id/distribuidor_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distribuidor"
+                android:textStyle="bold"
+                android:textSize="12dp"
+                android:layout_marginStart="0dp"
+                android:layout_alignParentRight="true"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/opcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="11dp"
+                    android:textColor="#062BFB"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="8dp"
+                    android:text="---"
+                    android:background="#0AEF43"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/cliente_txt"
+            android:layout_width="wrap_content"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="0dp"
+            android:layout_height="wrap_content"
+            android:text="Nombre del cliente Cliente"
+
+            />
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/direccion_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distribuidor"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:textSize="12dp"
+                android:layout_marginStart="0dp"
+                android:layout_alignParentRight="true"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/telefono_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="11dp"
+                android:textColor="#062BFB"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="8dp"
+                android:text="Telefonon" />
+          </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

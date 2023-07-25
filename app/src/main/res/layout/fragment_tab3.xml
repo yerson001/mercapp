@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentTab3">
+    tools:context=".Promotor.Fragments.FragmentTab3">
 
 
 
@@ -17,27 +17,6 @@
         android:layout_marginBottom="30dp"
         >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <!--  fin escabezado de la vista-->
 
 
         <LinearLayout
@@ -45,48 +24,42 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-
-
-
+                android:orientation="horizontal">
+                <!-- Primer LinearLayout (Ocupará la mitad) -->
                 <LinearLayout
-                    android:layout_width="170dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    >
-
+                    android:layout_marginEnd="5dp">
+                    <!-- Contenido del primer LinearLayout -->
                     <EditText
                         android:id="@+id/cliente_txt"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:textSize="14dp"
                         android:hint="NOMBRE"
-                        android:layout_height="wrap_content"
                         android:background="@drawable/snipper"
                         android:inputType="textCapCharacters"
-                        android:drawableStart="@drawable/baseline_account_circle_24"
-                        android:drawableLeft="@drawable/baseline_account_circle_24" />
+                        android:drawableStart="@drawable/baseline_drive_file_rename_outline_24" />
                 </LinearLayout>
 
-
-
-
-
+                <!-- Segundo LinearLayout (Ocupará la mitad) -->
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    >
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp">
+                    <!-- Contenido del segundo LinearLayout -->
                     <EditText
                         android:id="@+id/telefono_txt"
                         android:layout_width="match_parent"
@@ -97,14 +70,11 @@
                         android:inputType="number"
                         android:background="@drawable/snipper"
                         android:layout_alignParentRight="true"
-                        android:drawableStart="@drawable/baseline_local_phone_24"
-                        android:drawableLeft="@drawable/baseline_local_phone_24" />
+                        android:drawableStart="@drawable/baseline_wb_iridescent_24" />
                 </LinearLayout>
-
-
-
-
             </LinearLayout>
+
+
 
 
             <LinearLayout
@@ -124,8 +94,7 @@
                     android:inputType="textCapCharacters"
                     android:layout_height="wrap_content"
                     android:background="@drawable/snipper"
-                    android:drawableStart="@drawable/baseline_add_location_24"
-                    android:drawableLeft="@drawable/baseline_add_location_24" />
+                    android:drawableStart="@drawable/baseline_warehouse_24" />
             </LinearLayout>
 
 
@@ -142,7 +111,52 @@
 
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+                    <ImageButton
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/add_img"
+                        android:id="@+id/browse"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/img"
+                        android:layout_width="180dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="0dp"
+                        android:src="@drawable/baseline_hide_image_24"
+                        android:scaleType="centerCrop" />
+
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+
         </LinearLayout>
+
+
+
 
 
         <LinearLayout

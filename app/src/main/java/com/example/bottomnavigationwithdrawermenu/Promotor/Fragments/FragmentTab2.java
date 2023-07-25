@@ -7,22 +7,34 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.example.bottomnavigationwithdrawermenu.R;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentTab2#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentTab2 extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    String[] TipoEnvase = {"Display","Taper","Paquete","Bolsa","Frasco","Otros"};
+    String[] TipoProducto = {"Polvo","Fresco","Entero","Agranel","Otros"};
+    String[] TipoSobre = {"Gigante","Pequeño","Sachet","Sobre Económico"};
+    String[] ClasiProduct = { "Tradicional","No tradicinal","Otros"};
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+
+    AutoCompleteTextView tipoenvase;
+    ArrayAdapter<String> adaptertipoenvase;
+
+    AutoCompleteTextView tipoproducto;
+    ArrayAdapter<String> adaptertipoproducto;
+
+    AutoCompleteTextView tiposobre;
+    ArrayAdapter<String> adaptertiposobre;
+
+    AutoCompleteTextView clasificacion;
+    ArrayAdapter<String> adapterclasificacion;
+
+
     private String mParam1;
     private String mParam2;
 
@@ -30,15 +42,6 @@ public class FragmentTab2 extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentTab2.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentTab2 newInstance(String param1, String param2) {
         FragmentTab2 fragment = new FragmentTab2();
         Bundle args = new Bundle();
@@ -60,7 +63,25 @@ public class FragmentTab2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab2, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
+
+        tipoenvase = rootView.findViewById(R.id.tipo_envase_txt);
+        adaptertipoenvase = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, TipoEnvase);
+        tipoenvase.setAdapter(adaptertipoenvase);
+
+        tipoproducto = rootView.findViewById(R.id.tipo_producto_txt);
+        adaptertipoproducto = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, TipoProducto);
+        tipoproducto.setAdapter(adaptertipoproducto);
+
+        tiposobre = rootView.findViewById(R.id.tipo_sobre_txt);
+        adaptertiposobre = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, TipoSobre);
+        tiposobre.setAdapter(adaptertiposobre);
+
+        clasificacion = rootView.findViewById(R.id.clasifiacion_txt);
+        adapterclasificacion = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, ClasiProduct);
+        clasificacion.setAdapter(adapterclasificacion);
+
+        return rootView;
     }
 }

@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Acciones a realizar cuando se haga clic en el botón
-                Toast.makeText(getActivity(), "Promotor", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Promotor", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), PromotorActivity.class);
                 startActivity(intent);
             }

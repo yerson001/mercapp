@@ -12,8 +12,8 @@
 
     </style>
     <style name="Base.Theme.BottomNavigationWithDrawerMenu" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">#006064</item><!-- este es el combio de la parte superior -->
-        <item name="colorPrimaryVariant">#0D47A1</item>
+        <item name="colorPrimary">@color/lavender</item><!-- este es el combio de la parte superior -->
+        <item name="colorPrimaryVariant">#3A66AC</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
