@@ -3,6 +3,8 @@ package com.example.bottomnavigationwithdrawermenu.Promotor.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,29 +12,56 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.example.bottomnavigationwithdrawermenu.Promotor.Adapters.PfAdapter;
+import com.example.bottomnavigationwithdrawermenu.Promotor.Adapters.PriceAdapter;
+import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.Frescos;
+import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.prices;
 import com.example.bottomnavigationwithdrawermenu.R;
+
+import java.util.ArrayList;
+
 public class FragmentTab2 extends Fragment {
 
-    String[] TipoEnvase = {"Display","Taper","Paquete","Bolsa","Frasco","Otros"};
-    String[] TipoProducto = {"Polvo","Fresco","Entero","Agranel","Otros"};
-    String[] TipoSobre = {"Gigante","Pequeño","Sachet","Sobre Económico"};
-    String[] ClasiProduct = { "Tradicional","No tradicinal","Otros"};
+    String[] marcas = {
+            "SIVARITA",
+            "BATAN",
+            "LOPESA",
+            "BADIA"};
+
+    String[] categoria = {
+            "TRADICIONAL",
+            "NO TRADICIONAL",
+            "OTROS"};
+
+    String[] marcasarr = {"------SELECCIONE------",
+            "SAZONADOR COMPLETO  GIGANTE X 42 SBS",
+            "COMINO MOLIDO GIGANTE X 42 SBS",
+            "PIMIENTA BATAN GIGANTE X 42 SBS",
+            "PALILLO BATAN  GIGANTE X 42 SBS",
+            "TUCO SAZON SALSA BATAN GIGANTE X 42 SBS",
+            "AJO BATAN GIGANTE X 42 SBS",
+            "CANELA MOLIDA GIGANTE X 42 SBS",
+            "EL VERDE BATAN GIGANTE X 42 SBS",
+            "KION MOLIDO BATAN GIGANTE X 42 SBS"
+            ,"OREGANO SELECTO BATAN X 42 SBS",
+            "EL VERDE BATAN GIGANTE x 27 SBS",
+            "AJI PANCA FRESCO BATAN x 24 SBS",
+            "AJI AMARILLO FRESCO BATAN x24 SBS",
+            "AJO FRESCO BATAN x 24 SBS",
+            "CULANTRO FRESCO BATAN x 24 SBS"};
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    AutoCompleteTextView autoCompleteTxtMarca;
+    ArrayAdapter<String> adapterMarca;
+    AutoCompleteTextView autoCompleteTxtCategoria;
+    ArrayAdapter<String> adapterCategoria;
+    prices pri;
 
-    AutoCompleteTextView tipoenvase;
-    ArrayAdapter<String> adaptertipoenvase;
-
-    AutoCompleteTextView tipoproducto;
-    ArrayAdapter<String> adaptertipoproducto;
-
-    AutoCompleteTextView tiposobre;
-    ArrayAdapter<String> adaptertiposobre;
-
-    AutoCompleteTextView clasificacion;
-    ArrayAdapter<String> adapterclasificacion;
+    public static ArrayList<prices> pricesArrayList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private PriceAdapter adapter;
 
 
     private String mParam1;
@@ -40,15 +69,6 @@ public class FragmentTab2 extends Fragment {
 
     public FragmentTab2() {
         // Required empty public constructor
-    }
-
-    public static FragmentTab2 newInstance(String param1, String param2) {
-        FragmentTab2 fragment = new FragmentTab2();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -66,21 +86,24 @@ public class FragmentTab2 extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
 
-        tipoenvase = rootView.findViewById(R.id.tipo_envase_txt);
-        adaptertipoenvase = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, TipoEnvase);
-        tipoenvase.setAdapter(adaptertipoenvase);
+        for (int i = 1; i < marcasarr.length; i++) {
+            pri = new prices(Integer.toHexString(i), marcasarr[i]," "," "," "," ");
+            pricesArrayList.add(pri);
+        }
 
-        tipoproducto = rootView.findViewById(R.id.tipo_producto_txt);
-        adaptertipoproducto = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, TipoProducto);
-        tipoproducto.setAdapter(adaptertipoproducto);
 
-        tiposobre = rootView.findViewById(R.id.tipo_sobre_txt);
-        adaptertiposobre = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, TipoSobre);
-        tiposobre.setAdapter(adaptertiposobre);
+        autoCompleteTxtMarca = rootView.findViewById(R.id.marca_txt);
+        adapterMarca = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, marcas);
+        autoCompleteTxtMarca.setAdapter(adapterMarca);
 
-        clasificacion = rootView.findViewById(R.id.clasifiacion_txt);
-        adapterclasificacion = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, ClasiProduct);
-        clasificacion.setAdapter(adapterclasificacion);
+        autoCompleteTxtCategoria = rootView.findViewById(R.id.categoria_txt);
+        adapterCategoria = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, categoria);
+        autoCompleteTxtCategoria.setAdapter(adapterCategoria);
+
+        recyclerView = rootView.findViewById(R.id.recycler_price_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new PriceAdapter(getContext(), pricesArrayList,pricesArrayList);
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }

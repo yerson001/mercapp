@@ -156,7 +156,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp">
                 <EditText
                     android:layout_width="170dp"
@@ -200,14 +199,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
             android:layout_marginLeft="20dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="POLVOS"
-                android:textSize="18dp"
+                android:text="PRODUCTOS"
+                android:textSize="12dp"
                 android:textStyle="bold"
                 />
 
@@ -226,13 +225,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
-
-
-
-
-
-
-
 
 
         <LinearLayout
@@ -277,8 +269,9 @@
             <Button
                 android:id="@+id/btnSumar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:text="Sumar Valores"
+                android:background="@drawable/rectangle"
                 />
 
             <EditText
@@ -320,7 +313,7 @@
                 />
 
             <Button
-                android:id="@+id/btn_guardar"
+                android:id="@+id/btn_guardar_acompa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

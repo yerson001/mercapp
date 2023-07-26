@@ -11,17 +11,20 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.Frescos;
 import com.example.bottomnavigationwithdrawermenu.R;
-
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder>  {
+public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder> {
     private Context context;
     private List<Frescos> pfList;
     private List<Frescos> pfList_r;
@@ -49,6 +52,8 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder>  {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.frescos, parent, false);
         return new ViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -120,6 +125,17 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder>  {
             }
         });
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Imprimir el texto deseado cada vez que se haga clic en el elemento
+                String toastText = "Se hizo clic en el elemento " + frescos.getName();
+                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+                // Puedes cambiar el texto que deseas imprimir según tus necesidades.
+            }
+        });
+
+
         // Configurar un Listener para el CheckBox
         holder.checkBoxValidado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -152,6 +168,9 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder>  {
                 }
             }
         });
+
+
+
     }
 
     @Override

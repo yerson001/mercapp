@@ -20,21 +20,21 @@
             android:id="@+id/tab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REPORTE DIARIO"
+            android:text="REPORTE ACOMPAÑAMIENTO"
             android:textAllCaps="true" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AGREGAR PRODUCTO"
+            android:text="INFORME PRECIOS"
             android:textAllCaps="true" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AGREGAR MARCA"
+            android:text="AGREGAR PRODUCTO"
             android:textAllCaps="true" />
 
     </com.google.android.material.tabs.TabLayout>

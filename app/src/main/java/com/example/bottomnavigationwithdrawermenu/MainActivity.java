@@ -137,6 +137,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         username = getIntent().getStringExtra("username");
 
         //Toast.makeText(MainActivity.this,username,Toast.LENGTH_SHORT).show();
+        // Crea un Bundle y coloca el valor de "username" en él
+
+
+
+
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -721,7 +727,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return;
                 } else {
                     if(Txtmot.equals("Cobranza") || Txtmot.equals("Depósito") ){
-
+                        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                        progressDialog.setMessage("Cargando...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
                         PremiumFragment fragment = new PremiumFragment();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -732,6 +741,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         sendNotification("23");
                         dialog.dismiss();
                     }else{
+                        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                        progressDialog.setMessage("Cargando...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
                         Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
                         intent.putExtra("tienda", Txtloc);
                         intent.putExtra("sucursal", Txtsuc);
@@ -831,6 +844,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     toast.show();
                     return;
                 }else{
+                    ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage("Cargando...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
                     Intent intent = new Intent(MainActivity.this, PromotorActivity.class);
                     sendNotification("23");
                     //InsertarRegistro();

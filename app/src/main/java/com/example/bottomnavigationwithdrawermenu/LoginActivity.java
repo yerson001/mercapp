@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bottomnavigationwithdrawermenu.Fragment.HomeFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -135,6 +136,12 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("username", username);// In this part our send the username to mainactivity
+
+                                
+                                //ENVIAR USERNMAE AL FRAMENT
+                                //ENVIAR USERNMAE AL FRAMENT
+
+                                
                                 startActivity(intent);
                                 finish();
                             } else {
