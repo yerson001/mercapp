@@ -53,7 +53,7 @@ public class SummaryActivity extends AppCompatActivity {
     private TextView selectedDateTV;
     public static ArrayList<Summary> SumaryArrayList = new ArrayList<>();
 
-    String url = "https://emaransac.com/android/resumen.php";
+    String url = "https://emaransac.com/mercapp/merchant/product_summary.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,7 +243,7 @@ public class SummaryActivity extends AppCompatActivity {
         progressDialog.setMessage("Actualizando....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/android/actualizar_reporte.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/update_product_summary.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

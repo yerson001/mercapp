@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bottomnavigationwithdrawermenu.MenuAdapter;
 import com.example.bottomnavigationwithdrawermenu.Mercaderista.SummaryActivity;
 import com.example.bottomnavigationwithdrawermenu.Promotor.PromotorActivity;
+import com.example.bottomnavigationwithdrawermenu.Promotor.SummaryProActivity;
 import com.example.bottomnavigationwithdrawermenu.R;
 import com.example.bottomnavigationwithdrawermenu.itemMenu;
 import java.util.ArrayList;
@@ -59,8 +60,9 @@ public class HomeFragment extends Fragment implements MenuAdapter.OnItemClickLis
     private List<itemMenu> createOptionList() {
         List<itemMenu> options = new ArrayList<>();
         options.add(new itemMenu(R.drawable.baseline_diversity_3_24, "PROMOTOR VENTAS"));
-        options.add(new itemMenu(R.drawable.baseline_content_paste_go_24, "INVENTARIO"));
+        options.add(new itemMenu(R.drawable.baseline_add_business_24, "ACOMPAÑAMIENTO"));
         options.add(new itemMenu(R.drawable.baseline_monetization_on_24, "REPORTE PRECIOS"));
+        options.add(new itemMenu(R.drawable.baseline_content_paste_go_24, "INVENTARIO"));
         options.add(new itemMenu(R.drawable.settings_icn, "AJUSTES"));
         // Agrega más elementos según tus necesidades
         return options;
@@ -85,8 +87,13 @@ public class HomeFragment extends Fragment implements MenuAdapter.OnItemClickLis
             progressDialog.show();
             Intent intent = new Intent(requireContext(), SummaryActivity.class);
             startActivity(intent);
-        } else if (option.getText().equals("REPORTE PRECIOS")) {
-
+        } else if (option.getText().equals("ACOMPAÑAMIENTO")) {
+            ProgressDialog progressDialog = new ProgressDialog(requireContext());
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            Intent intent = new Intent(requireContext(), SummaryProActivity.class);
+            startActivity(intent);
         } else if (option.getText().equals("AJUSTES")) {
             Toast.makeText(requireContext(), "opciones!", Toast.LENGTH_SHORT).show();
         }

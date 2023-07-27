@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PremiumFragment extends Fragment {
+public class PremiumFragment extends Fragment implements DetailAdapter.ButtonClickListener {
     public static ArrayList<Register> RegisterList = new ArrayList<>();
     private RecyclerView recyclerView;
     Register reg;
@@ -64,7 +64,7 @@ public class PremiumFragment extends Fragment {
 
     public void retrieveData(){
 
-        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/android/reporte_visita.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/show_visit_record.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -79,14 +79,15 @@ public class PremiumFragment extends Fragment {
                                 for(int i=0;i<jsonArray.length();i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String id = object.getString("id");
-                                    String inicio = object.getString("inicio");
-                                    String local = object.getString("local");
-                                    String motivo = object.getString("motivo");
-                                    String fin = object.getString("fin");
-                                    String tiempo = object.getString("tiempo");
+                                    String inicio = object.getString("start_time");
+                                    String local = object.getString("store");
+                                    String motivo = object.getString("reason");
+                                    String fin = object.getString("end_time");
+                                    String tiempo = object.getString("duration");
+                                    String estado = object.getString("status");
                                     int horas = Integer.parseInt(tiempo) / 60; // Obtener la cantidad de horas
                                     int minutos = Integer.parseInt(tiempo) % 60; // Obtener la cantidad de minutos restantes
-                                    reg = new Register(id,inicio,local,motivo,fin,horas + " hrs " + minutos + " min");
+                                    reg = new Register(id,inicio,local,motivo,fin,horas + " hrs " + minutos + " min",estado);
                                     RegisterList.add(reg);
                                     adapter_.notifyDataSetChanged();
                                 }
@@ -104,5 +105,13 @@ public class PremiumFragment extends Fragment {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(request);
+    }
+
+
+    @Override
+    public void onButtonClick(String tvID,String local,String motivo) {
+        // Aquí puedes manejar la acción del botón
+        Toast.makeText(getContext(), "premiun: -> " + tvID, Toast.LENGTH_SHORT).show();
+        //updateData(tvID,local,motivo);
     }
 }

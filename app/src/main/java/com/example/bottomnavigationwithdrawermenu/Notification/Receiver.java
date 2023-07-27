@@ -24,6 +24,7 @@ public class Receiver extends BroadcastReceiver {
     }
     private void show(Context context,String txt){
         Toast.makeText(context,txt, Toast.LENGTH_LONG).show();
+
     }
 }
 

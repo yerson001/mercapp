@@ -2,19 +2,20 @@ package com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity;
 
 
 public class Register {
-    String id, fecha, local, motivo, fechafin,tiempo;
+    String id, fecha, local, motivo, fechafin,tiempo,estado;
     boolean isFinalizado;
 
     public Register() {
     }
 
-    public Register(String id, String fecha, String local, String motivo, String fechafin,String tiempo) {
+    public Register(String id, String fecha, String local, String motivo, String fechafin,String tiempo,String estado) {
         this.id = id;
         this.fecha = fecha;
         this.local = local;
         this.motivo = motivo;
         this.fechafin = fechafin;
         this.tiempo = tiempo;
+        this.estado = estado;
         this.isFinalizado = false; // Por defecto, se establece como no finalizado
     }
 
@@ -69,8 +70,13 @@ public class Register {
     public boolean isFinalizado() {
         return isFinalizado;
     }
-
     public void setFinalizado(boolean finalizado) {
         isFinalizado = finalizado;
+    }
+    public String getEstado() {
+        return estado;
+    }
+    public void setEstado(String statdo) {
+        this.estado = estado;
     }
 }

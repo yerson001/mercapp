@@ -8,11 +8,14 @@ import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,11 +106,10 @@ public class FragmentTab1 extends Fragment  {
     ArrayAdapter<String> adapterCategoria;
     public static ArrayList<Frescos> pro_polvos = new ArrayList<>();
 
-    private RecyclerView recyclerView, recyclerView2;
+    private RecyclerView recyclerView;
 
     private PfAdapter adapter;
-
-
+    Frescos frecos;
     Button btn_insert;
     String Distribuidor;
     String CategoriA;
@@ -124,10 +126,10 @@ public class FragmentTab1 extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab1, container, false);
-        Frescos frecos;
+
         pro_polvos.clear();
-
-
+        Distribuidor="";
+        CategoriA="";
         for (int i = 1; i < polvosarr.length; i++) {
             frecos = new Frescos(Integer.toHexString(i), polvosarr[i]);
             pro_polvos.add(frecos);
@@ -169,7 +171,7 @@ public class FragmentTab1 extends Fragment  {
                 // Acción que se debe mandar a los campos editables
                 String item = parent.getItemAtPosition(position).toString();
                 Distribuidor = item;
-                Toast.makeText(requireContext(), " " + item, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(requireContext(), " " + item, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -202,17 +204,12 @@ public class FragmentTab1 extends Fragment  {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         final String distribuidor = Distribuidor;
         final String cliente = txtCliente.getText().toString().trim();//obligatorio
         final String telefono = txtTelefono.getText().toString().trim();//opcional
         final String direccion = txtDireccion.getText().toString().trim();//obligatorio
         final String nombrecomercial = txtNombreComercial.getText().toString().trim();//opcional
         final String categoria = CategoriA;
-
-
-        //final String polvos = polvos_list.getText().toString().trim();
-        //final String frescos = frescos_list.getText().toString().trim();
 
         boolean isCheckedEx = checkBoxExhibidor.isChecked();
         boolean isCheckedPop = checkBoxPop.isChecked();
@@ -224,12 +221,16 @@ public class FragmentTab1 extends Fragment  {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("cargando...");
 
+        if(Distribuidor.isEmpty()){
+            Toast.makeText(getContext(), "Ingrese Distribuidor", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(cliente.isEmpty()){
             Toast.makeText(getContext(), "Ingrese Cliente", Toast.LENGTH_SHORT).show();
             return;
         }
         else if(direccion.isEmpty()){
-            Toast.makeText(getContext(), "Ingrese Teléfono", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ingrese Dirección", Toast.LENGTH_SHORT).show();
             return;
         }
         else if(categoria.isEmpty()){
@@ -241,7 +242,6 @@ public class FragmentTab1 extends Fragment  {
             return;
         }
         else{
-
             //List<Frescos> lista = adapter.getPfList_r();
             List<Frescos> lista = adapter.getCheckedItems();
             String[] arraypolvos = new String[lista.size()];
@@ -250,19 +250,7 @@ public class FragmentTab1 extends Fragment  {
                 arraypolvos[i] = f.getName();
                 i++;
             }
-
-
-            List<Frescos> lista2 = adapter.getCheckedItems();
-            String[] arraypolvos2 = new String[lista2.size()];
-            int i2 = 0;
-            for (Frescos f2 : lista2) {
-                arraypolvos2[i2] = f2.getName();
-                i2++;
-            }
-
             JSONArray jsonArray = new JSONArray(Arrays.asList(arraypolvos));
-            JSONArray jsonArray2 = new JSONArray(Arrays.asList(arraypolvos2));
-
 
             progressDialog.show();
             String a_lat = "0";
@@ -273,12 +261,13 @@ public class FragmentTab1 extends Fragment  {
 
             String finalA_lon = a_lon;
             String finalA_lat = a_lat;
-            StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/android/insertar_reporte_promotor.php",
+            StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/promoter/insert_report.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             if(response.equalsIgnoreCase("Se guardo correctamente.")){
-                                Toast.makeText(getContext(), "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+                                //mostrarToastPersonalizado();
                                 progressDialog.dismiss();
                                 //********************************* NO INTENT MAIN *************************************************
                                 //startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -304,13 +293,8 @@ public class FragmentTab1 extends Fragment  {
                     String valorCadena1 = String.valueOf(isCheckedEx);
                     String valorCadena2 = String.valueOf(isCheckedPop);
 
-                    Log.d("------------------TAG------1--------------", jsonArray.toString());
-                    Log.d("------------------TAG-------2-------------", jsonArray2.toString());
-
-
-
-
-
+                    //Log.d("------------------TAG------1--------------", jsonArray.toString());
+                    //Log.d("------------------TAG-------2-------------", jsonArray2.toString());
                     params.put("distribuidor",distribuidor);
                     params.put("cliente",cliente);
                     params.put("telefono",telefono);
@@ -318,7 +302,7 @@ public class FragmentTab1 extends Fragment  {
                     params.put("nombrecomercial",nombrecomercial);
                     params.put("categoriasfinal",CategoriA);
                     params.put("polvosarr", jsonArray.toString());
-                    params.put("frescosarr", jsonArray2.toString());
+                    //params.put("frescosarr", jsonArray2.toString());
                     params.put("isCheckedEx",valorCadena1);
                     params.put("isCheckedPop",valorCadena2);
                     params.put("ventas",ventas);
@@ -339,10 +323,31 @@ public class FragmentTab1 extends Fragment  {
                     //Intent intent = new Intent(ProVMainActivity.this, getContext());
                     //startActivity(intent);
                     //finish();
+
+                    txtCliente.setText("");
+                    txtTelefono.setText("");
+                    txtDireccion.setText("");
+                    txtNombreComercial.setText("");
+                    checkBoxExhibidor.setChecked(false);
+                    checkBoxPop.setChecked(false);
+                    Distribuidor = "";
+                    CategoriA = "";
+                    autoCompleteTxt.setText("");
+                    autoCompleteTxtcat.setText("");
+                    txtVentas.setText("");
+                    txtObservaciones.setText("");
+                    pro_polvos.clear();
+
+                    for (int i = 1; i < polvosarr.length; i++) {
+                        frecos = new Frescos(Integer.toHexString(i), polvosarr[i]);
+                        pro_polvos.add(frecos);
+                    }
+
+                    adapter.notifyDataSetChanged();
                 }
             });
         }
-
+/*
         Log.d("TAG--------------------", "distrinuidor: " + distribuidor +
                 "  cliente: " + cliente +
                 "  Telefono: " + telefono +
@@ -357,7 +362,7 @@ public class FragmentTab1 extends Fragment  {
                 "  Observaciones: " + observaciones+
                 "  Long: " + ventas +
                 "  Latitud: " + observaciones
-        );
+        );*/
 
     }
 
@@ -380,6 +385,21 @@ public class FragmentTab1 extends Fragment  {
         } else {
             return "0";
         }
+    }
+    private void mostrarToastPersonalizado() {
+        LayoutInflater inflater = getLayoutInflater();
+        View toastLayout = inflater.inflate(R.layout.toast_customg, null);
+
+        // Configurar el texto del Toast personalizado
+        TextView textView = toastLayout.findViewById(R.id.text_view);
+        textView.setText("✅ Registro Guardado");
+
+        // Crear y mostrar el Toast personalizado
+        Toast toast = new Toast(getContext());
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40); // Establecer la posición en la parte superior y centrada
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastLayout);
+        toast.show();
     }
 
 }

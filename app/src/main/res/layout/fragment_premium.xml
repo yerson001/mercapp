@@ -16,13 +16,13 @@
         android:textSize="20dp"
         android:textColor="@color/lavender"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         />
 
     <androidx.cardview.widget.CardView
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="370dp"
         android:layout_marginBottom="30dp"
         >
         <androidx.recyclerview.widget.RecyclerView

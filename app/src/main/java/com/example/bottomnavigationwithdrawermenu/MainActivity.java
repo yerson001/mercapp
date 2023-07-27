@@ -50,6 +50,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.bottomnavigationwithdrawermenu.Fragment.BlockDiversionFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.BlockListFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.FAQFragment;
@@ -59,9 +66,11 @@ import com.example.bottomnavigationwithdrawermenu.Fragment.NotificationFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.PremiumFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.SettingsFragment;
 import com.example.bottomnavigationwithdrawermenu.Fragment.SupportFragment;
+import com.example.bottomnavigationwithdrawermenu.Mercaderista.Adapters.DetailAdapter;
 import com.example.bottomnavigationwithdrawermenu.Mercaderista.ProductListActivity;
 import com.example.bottomnavigationwithdrawermenu.Notification.Receiver;
 import com.example.bottomnavigationwithdrawermenu.Promotor.PromotorActivity;
+import com.example.bottomnavigationwithdrawermenu.Ubication.GpsTracker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -69,9 +78,11 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -91,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer;
     String username="";
 
-
+    GpsTracker gpsTracker;
 
 
     // bottom navigation
@@ -153,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
             }
         }, 1000); // Delay de 2 segundos (ajústalo según tus necesidades)
+
+
 
 
         TextView TXT_user = findViewById(R.id.text_user);
@@ -677,60 +690,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 final String Txtsuc = txtsucursal.getText().toString();
 
                 if (Txtmot.isEmpty() || Txtmot.equals("######")) {
-                    //Toast.makeText(MainActivity.this, "Ingrese Motivo", Toast.LENGTH_SHORT).show();
-                    //Toasty.warning(getApplicationContext(), "Mensaje de advertencia", Toast.LENGTH_SHORT).show();
-                    // -----   CUSTOM ALERTOAS
-                    LayoutInflater inflater = getLayoutInflater();
-                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
-                    // Configurar el texto del Toast
-                    TextView textView = toastLayout.findViewById(R.id.text_view);
-                    textView.setText("\n           ⚠️ Ingrese Motivo        \n");
-                    // Crear y mostrar el Toast personalizado
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
-                    ; // Establecer la posición en la parte superior y centrada
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(toastLayout);
-                    toast.show();
-
+                    show_toas();
                     return;
                 } else if (Txtloc.equals("##############")) {
-                    //Toast.makeText(MainActivity.this, "Ingrese Local", Toast.LENGTH_SHORT).show();
-                    LayoutInflater inflater = getLayoutInflater();
-                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
-                    // Configurar el texto del Toast
-                    TextView textView = toastLayout.findViewById(R.id.text_view);
-                    textView.setText("\n           ⚠️ Ingrese Local        \n");
-                    // Crear y mostrar el Toast personalizado
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
-                    ; // Establecer la posición en la parte superior y centrada
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(toastLayout);
-                    toast.show();
-
+                    show_toas();
                     return;
                 } else if (Txtsuc.equals("######")) {
-                    //Toast.makeText(MainActivity.this, "Ingrese Sucursal", Toast.LENGTH_SHORT).show();
-                    LayoutInflater inflater = getLayoutInflater();
-                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
-                    // Configurar el texto del Toast
-                    TextView textView = toastLayout.findViewById(R.id.text_view);
-                    textView.setText("\n           ⚠️️ Ingrese Sucursal        \n");
-                    // Crear y mostrar el Toast personalizado
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
-                    ; // Establecer la posición en la parte superior y centrada
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(toastLayout);
-                    toast.show();
+                    show_toas();
                     return;
                 } else {
                     if(Txtmot.equals("Cobranza") || Txtmot.equals("Depósito") ){
-                        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-                        progressDialog.setMessage("Cargando...");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
+                        sendNotification("23");
+                        insert_record(txtmotivo.getText().toString(),Txtloc,"Entidad Bancaria");
+                        dialog.dismiss();
+
                         PremiumFragment fragment = new PremiumFragment();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -738,13 +711,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         fragmentTransaction.commit();
                         //createNotificationChannel();
                         //showNotification();
-                        sendNotification("23");
-                        dialog.dismiss();
+
                     }else{
+
                         ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
                         progressDialog.setMessage("Cargando...");
                         progressDialog.setCancelable(false);
                         progressDialog.show();
+
+
                         Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
                         intent.putExtra("tienda", Txtloc);
                         intent.putExtra("sucursal", Txtsuc);
@@ -753,7 +728,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         //createNotificationChannel();
                         //showNotification();
                         sendNotification("23");
-                        //InsertarRegistro();
+                        //INSERT RECORD MERCADERISTA
+                        String sucursal_ = Txtsuc.replace("»", "");
+                        insert_record(txtmotivo.getText().toString(),Txtloc,sucursal_);
                         startActivity(intent);
 
                     }
@@ -773,6 +750,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         //crea la notificacion
 
+    }
+
+
+    private void show_toas(){
+        LayoutInflater inflater = getLayoutInflater();
+        View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
+        // Configurar el texto del Toast
+        TextView textView = toastLayout.findViewById(R.id.text_view);
+        textView.setText("\n           ⚠️️ Ingrese Sucursal        \n");
+        // Crear y mostrar el Toast personalizado
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
+        ; // Establecer la posición en la parte superior y centrada
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastLayout);
+        toast.show();
     }
 
     private void showPromattendance() {
@@ -827,30 +820,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //Toast.makeText(MainActivity.this,"funciona",Toast.LENGTH_SHORT).show();
                 final String Txtmot = txtmotivop.getText().toString();
                 if (Txtmot.isEmpty() || Txtmot.equals("######")) {
-                    //Toast.makeText(MainActivity.this, "Ingrese Motivo", Toast.LENGTH_SHORT).show();
-                    //Toasty.warning(getApplicationContext(), "Mensaje de advertencia", Toast.LENGTH_SHORT).show();
-                    // -----   CUSTOM ALERTOAS
-                    LayoutInflater inflater = getLayoutInflater();
-                    View toastLayout = inflater.inflate(R.layout.toast_customr, findViewById(R.id.toast_layout_root));
-                    // Configurar el texto del Toast
-                    TextView textView = toastLayout.findViewById(R.id.text_view);
-                    textView.setText("\n           ⚠️ Ingrese Motivo        \n");
-                    // Crear y mostrar el Toast personalizado
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
-                    ; // Establecer la posición en la parte superior y centrada
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(toastLayout);
-                    toast.show();
+                    show_toas();
                     return;
                 }else{
-                    ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-                    progressDialog.setMessage("Cargando...");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
+                    insert_record("hola","mundo","c++");
+
+                    //ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                    //progressDialog.setMessage("Cargando...");
+                    //progressDialog.setCancelable(false);
+                    //progressDialog.show();
+
                     Intent intent = new Intent(MainActivity.this, PromotorActivity.class);
                     sendNotification("23");
                     //InsertarRegistro();
+
                     startActivity(intent);
                     return;
                 }
@@ -896,8 +879,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addAction(R.drawable.baseline_notifications_off_24, "Finalizar", actionPending)
                 .setDeleteIntent(deletePendingIntent)
                 .setLargeIcon(bitmap)
-                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
-                .setOngoing(true); // Evitar que la notificación sea deslizable
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null));
 
         compat = NotificationManagerCompat.from(MainActivity.this);
 
@@ -995,4 +977,113 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         requestQueue.add(request);
     }
 */
+
+
+    private void insert_record(String motiv,String local,String sucursal) {
+        final String mylocal = local;//obligatorio
+        final String mymotivo = motiv;
+
+        //Toast.makeText(Register_Activity.this,mylocal+" "+mymotivo,Toast.LENGTH_LONG).show();
+
+        //final ProgressDialog progressDialog = new ProgressDialog(this);
+        //progressDialog.setMessage("cargando...");
+
+        if(mylocal.isEmpty()){
+            Toast.makeText(this, "Ingrese Local", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else{
+
+            //progressDialog.show();
+
+            String a_lat = "0";
+            String a_lon = "0";
+            a_lat = getLocs(1);
+            a_lon = getLocs(2);
+
+
+            String finalA_lon = a_lon;
+            String finalA_lat = a_lat;
+            StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/visit_record.php",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if(response.equalsIgnoreCase("Se guardo correctamente.")){
+                                //Toast.makeText(Register_Activity.this, "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+                                //progressDialog.dismiss();
+
+
+                                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                //finish();
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+
+
+                                //progressDialog.dismiss();
+
+
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                    //progressDialog.dismiss();
+
+
+                }
+            }
+            ){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<String,String>();
+
+                    //Log.d("---REPORTE--DE--PRECIOS---", observacines_+">>>>>>>>>>>> ");
+                    params.put("motivo",mymotivo);
+                    params.put("local",mylocal);
+                    params.put("sucursal",sucursal);
+                    params.put("ilog", finalA_lon);
+                    params.put("ilat", finalA_lat);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+            requestQueue.add(request);
+
+            requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
+
+                @Override
+                public void onRequestFinished(Request<Object> request) {
+                    //por ahora
+                    //RegisterList.clear();
+                    gpsTracker.stopUsingGPS();
+                }
+            });
+        }
+    }
+
+
+    public String getLocs(int ID) { //Get Current Lat and Lon 1=lat, 2=lon
+        String asd_lat = "";
+        String asd_lon = "";
+        gpsTracker = new GpsTracker(MainActivity.this);
+        if (gpsTracker.canGetLocation()) {
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
+            asd_lat = String.valueOf(latitude);
+            asd_lon = String.valueOf(longitude);
+        } else {
+            gpsTracker.showSettingsAlert();
+        }
+        if (ID == 1) {
+            return asd_lat;
+        } else if (ID == 2) {
+            return asd_lon;
+        } else {
+            return "0";
+        }
+    }
 }

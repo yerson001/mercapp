@@ -101,9 +101,6 @@
             android:text="Hipermercados Tottus"
             />
 
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,17 +122,16 @@
                 >
 
                 <TextView
-                    android:id="@+id/tiempo"
+                    android:id="@+id/estado_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="11dp"
                     android:textColor="#4A148C"
                     android:layout_alignParentRight="true"
-                    android:layout_marginEnd="28dp"
-                    android:text="Estado" />
+                    android:layout_marginEnd="20dp"
+                    android:text="INICIADO" />
             </RelativeLayout>
-
 
         </LinearLayout>
         <RelativeLayout
@@ -171,8 +167,8 @@
             android:textSize="10dp"
             android:background="#F64747"
             />
-        </RelativeLayout>
 
+        </RelativeLayout>
     </LinearLayout>
 
 

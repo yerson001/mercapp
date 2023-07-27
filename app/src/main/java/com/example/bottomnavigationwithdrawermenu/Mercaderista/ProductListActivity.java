@@ -375,7 +375,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductAda
         progressDialog.show();
 
 
-        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/android/insertar_reporte.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/insert_product_by_store.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -403,7 +403,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductAda
                 params.put("producto", producto);
                 params.put("inventario", inventario);
                 params.put("pedido", pedido);
-                params.put("lon", lon);
+                params.put("long", lon);
                 params.put("lat", lat);
                 params.put("ip", ip);
                 params.put("img_id", img_id);
@@ -428,7 +428,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductAda
         progressDialog.setMessage("Cargando...");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/android/insertar_reporte_pop.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/pop_inventory_report.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
