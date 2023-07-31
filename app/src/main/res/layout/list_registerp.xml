@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="18dp"
             android:layout_height="100dp"
-            android:id="@+id/id_txt_rp"
+            android:id="@+id/id_txt_rpt"
             android:text="1200"
             android:gravity="center_vertical|center"
             android:textSize="8sp"
@@ -44,7 +44,7 @@
                 android:textColor="@color/verde"
                 />
             <TextView
-                android:id="@+id/fecha_txt_p"
+                android:id="@+id/fecha_txt_rpt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2023/12/12"
@@ -62,7 +62,7 @@
 
 
                 <TextView
-                    android:id="@+id/fecha_txt_pro"
+                    android:id="@+id/fecha_fin_txt_rpt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -92,7 +92,7 @@
 
 
         <TextView
-            android:id="@+id/local_txt_r"
+            android:id="@+id/local_txt_rpt"
             android:layout_width="wrap_content"
             android:textSize="14dp"
             android:textColor="@color/black"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             >
             <TextView
-                android:id="@+id/motivo_txt_p"
+                android:id="@+id/motivo_txt_rpt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="inicio"
@@ -132,15 +132,15 @@
                 >
 
                 <TextView
-                    android:id="@+id/tiempo"
+                    android:id="@+id/estado_txt_rpt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="11dp"
                     android:textColor="#4A148C"
                     android:layout_alignParentRight="true"
-                    android:layout_marginEnd="28dp"
-                    android:text="Estado" />
+                    android:layout_marginEnd="20dp"
+                    android:text="INICIADO" />
             </RelativeLayout>
 
 
@@ -160,7 +160,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/horas_txt_p"
+                android:id="@+id/horas_txt_rpt"
                 android:layout_marginTop="7dp"
                 android:text="24min"
                 android:layout_marginStart="30dp"
@@ -169,7 +169,7 @@
                 />
             <Button
                 android:layout_width="wrap_content"
-                android:id="@+id/btn_finalizar_p"
+                android:id="@+id/btn_finalizar_rpt"
                 android:layout_height="35dp"
                 android:text="Finalizar"
                 android:layout_marginTop="5dp"

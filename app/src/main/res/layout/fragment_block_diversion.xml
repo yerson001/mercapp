@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Empty Fragment"
+        android:text="Empty Fragment1"
         android:textColor="@color/lavender"
         android:textSize="30sp" />
 

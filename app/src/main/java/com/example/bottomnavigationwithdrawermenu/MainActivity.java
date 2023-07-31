@@ -91,7 +91,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int numdb;
     //Stores stores;
     //StoreAdapter adapter;
-    String url = "https://emaransac.com/mercapp/get_stores.php";
+    String urlmercad = "https://emaransac.com/mercapp/merchant/visit_record.php";
+    String urlpromto = "https://emaransac.com/mercapp/promoter/visit_record.php";
+
     FloatingActionButton fab;
 
     private final static String CHANNEL_ID = "1";
@@ -170,6 +172,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         TextView TXT_user = findViewById(R.id.text_user);
         TXT_user.setText(username);
+
+
+        TextView TXT_users = findViewById(R.id.txt_usuario);
+        TXT_users.setText(username);
 
 
         fab = findViewById(R.id.fab);
@@ -701,7 +707,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     if(Txtmot.equals("Cobranza") || Txtmot.equals("Depósito") ){
                         sendNotification("23");
-                        insert_record(txtmotivo.getText().toString(),Txtloc,"Entidad Bancaria");
+                        insert_record(txtmotivo.getText().toString(),Txtloc,"Entidad Bancaria",urlmercad);
                         dialog.dismiss();
 
                         PremiumFragment fragment = new PremiumFragment();
@@ -730,7 +736,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         sendNotification("23");
                         //INSERT RECORD MERCADERISTA
                         String sucursal_ = Txtsuc.replace("»", "");
-                        insert_record(txtmotivo.getText().toString(),Txtloc,sucursal_);
+                        insert_record(txtmotivo.getText().toString(),Txtloc,sucursal_,urlmercad);
                         startActivity(intent);
 
                     }
@@ -823,18 +829,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     show_toas();
                     return;
                 }else{
-                    insert_record("hola","mundo","c++");
+                    insert_record(Txtmot,"PROMOTOR VENTAS","promotor",urlpromto);
 
                     //ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
                     //progressDialog.setMessage("Cargando...");
                     //progressDialog.setCancelable(false);
                     //progressDialog.show();
 
-                    Intent intent = new Intent(MainActivity.this, PromotorActivity.class);
-                    sendNotification("23");
-                    //InsertarRegistro();
-
-                    startActivity(intent);
+                    if(Txtmot.equals("Durante el día") || Txtmot.equals("Fin")){
+                        dialogp.dismiss();
+                        sendNotification("23");
+                    }else{
+                        dialogp.dismiss();
+                        Intent intent = new Intent(MainActivity.this, PromotorActivity.class);
+                        sendNotification("23");
+                        //InsertarRegistro();
+                        startActivity(intent);
+                        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                        progressDialog.setMessage("Cargando...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                    }
                     return;
                 }
             }
@@ -979,7 +994,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 */
 
 
-    private void insert_record(String motiv,String local,String sucursal) {
+    private void insert_record(String motiv,String local,String sucursal,String url) {
         final String mylocal = local;//obligatorio
         final String mymotivo = motiv;
 
@@ -1004,7 +1019,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             String finalA_lon = a_lon;
             String finalA_lat = a_lat;
-            StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/visit_record.php",
+            StringRequest request = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

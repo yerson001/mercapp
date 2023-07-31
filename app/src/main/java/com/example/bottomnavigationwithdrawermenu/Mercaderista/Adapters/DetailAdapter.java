@@ -75,6 +75,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
                 String tvIDValue = detalle.getId();
                 String tvIDLocal = detalle.getLocal();
                 String tvIDMotivo = detalle.getMotivo();
+                String usertxt = detalle.getUser();
 
                 // Llamar al método onButtonClick de la interfaz
                 if (buttonClickListener != null) {
@@ -88,7 +89,16 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
                 holder.btnFinalizar.setEnabled(false);
 
                 //Toast.makeText(context,tvIDValue,Toast.LENGTH_SHORT).show();
-                updateData(tvIDValue);
+                String url1 = "https://emaransac.com/mercapp/merchant/update_visit_record.php";
+                String url2 = "https://emaransac.com/mercapp/promoter/update_visit_record.php";
+                if(usertxt.equals("promotor")){
+                    updateDatapro(tvIDValue,url1);
+                    //Toast.makeText(context,tvIDValue+" "+usertxt,Toast.LENGTH_SHORT).show();
+                } else if (usertxt.equals("mercaderista")) {
+                    updateData(tvIDValue,url2);
+                    //Toast.makeText(context,tvIDValue+" "+usertxt,Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -129,7 +139,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         void onButtonClick(String tvID,String local,String motivo);
     }
 
-    private void updateData(String id) {
+    private void updateData(String id,String url) {
 
 
         //Toast.makeText(Register_Activity.this,mylocal+" "+mymotivo,Toast.LENGTH_LONG).show();
@@ -149,6 +159,74 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         String finalA_lon = a_lon;
         String finalA_lat = a_lat;
         StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/update_visit_record.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.equalsIgnoreCase("Se guardo correctamente.")){
+                            //Toast.makeText(Register_Activity.this, "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            //finish();
+                        }
+                        else{
+                            Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String,String>();
+
+                //Log.d("---REPORTE--DE--PRECIOS---", observacines_+">>>>>>>>>>>> ");
+                params.put("id",id);
+                params.put("flog", finalA_lon);
+                params.put("flat", finalA_lat);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+
+        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
+
+            @Override
+            public void onRequestFinished(Request<Object> request) {
+                //por ahora
+                //RegisterList.clear();
+                //retrieveData();
+            }
+        });
+    }
+
+
+    private void updateDatapro(String id,String url) {
+
+
+        //Toast.makeText(Register_Activity.this,mylocal+" "+mymotivo,Toast.LENGTH_LONG).show();
+
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("cargando...");
+
+
+        progressDialog.show();
+
+        String a_lat = "0";
+        String a_lon = "0";
+        a_lat = getLocs(1);
+        a_lon = getLocs(2);
+
+
+        String finalA_lon = a_lon;
+        String finalA_lat = a_lat;
+        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/promoter/update_visit_record.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

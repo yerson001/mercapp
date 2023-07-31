@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/nav_bottom_premium"
-        android:title="Finalizar"
+        android:title="Registro"
         android:icon="@drawable/baseline_access_alarm_24" />
     <item
         android:id="@+id/nav_help"

@@ -106,6 +106,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/venta"
                     android:text="S/."
+                    android:textStyle="bold"
                     android:textSize="10dp"
                     android:textColor="@color/red"
                     android:layout_marginTop="20dp"

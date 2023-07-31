@@ -96,10 +96,6 @@ public class FragmentTab2 extends Fragment {
         adapterMarca = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, marcas);
         autoCompleteTxtMarca.setAdapter(adapterMarca);
 
-        autoCompleteTxtCategoria = rootView.findViewById(R.id.categoria_txt);
-        adapterCategoria = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, categoria);
-        autoCompleteTxtCategoria.setAdapter(adapterCategoria);
-
         recyclerView = rootView.findViewById(R.id.recycler_price_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PriceAdapter(getContext(), pricesArrayList,pricesArrayList);

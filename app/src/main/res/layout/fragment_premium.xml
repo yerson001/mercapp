@@ -7,18 +7,6 @@
     android:orientation="vertical"
     tools:context=".Fragment.PremiumFragment">
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:text="Registro de Ingreso"
-        android:textSize="20dp"
-        android:textColor="@color/lavender"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        />
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myregister"
@@ -26,6 +14,5 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="80dp"
             />
-
 
 </LinearLayout>

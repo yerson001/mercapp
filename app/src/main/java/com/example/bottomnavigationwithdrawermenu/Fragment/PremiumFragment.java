@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bottomnavigationwithdrawermenu.MainActivity;
 import com.example.bottomnavigationwithdrawermenu.Mercaderista.Adapters.DetailAdapter;
 import com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity.Register;
 import com.example.bottomnavigationwithdrawermenu.R;
@@ -31,6 +33,8 @@ public class PremiumFragment extends Fragment implements DetailAdapter.ButtonCli
     private RecyclerView recyclerView;
     Register reg;
     DetailAdapter adapter_;
+    String urlmercad = "https://emaransac.com/mercapp/merchant/show_visit_record.php";
+    String urlpromot = "https://emaransac.com/mercapp/promoter/show_visit_record.php";
     String user="";
 
     @Override
@@ -46,6 +50,16 @@ public class PremiumFragment extends Fragment implements DetailAdapter.ButtonCli
             Toast.makeText(getContext(),param1,Toast.LENGTH_LONG).show();
         }
 
+        MainActivity activity = (MainActivity) getActivity();
+        TextView txtUsuario = activity.findViewById(R.id.txt_usuario);
+        user = txtUsuario.getText().toString();
+
+        if(user.equals("promotor")){
+            retrieveData(urlpromot,user);
+        }else if(user.equals("mercaderista")){
+            retrieveData(urlmercad,user);
+        }
+
         recyclerView = rootView.findViewById(R.id.myregister);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -53,18 +67,18 @@ public class PremiumFragment extends Fragment implements DetailAdapter.ButtonCli
         recyclerView.setAdapter(adapter_);
         //adapter_.setButtonClickListener(this);
         if(user.equals("promotor")){
-
-        }else{
-            retrieveData();
+            retrieveData(urlpromot,user);
+        }else if(user.equals("mercaderista")){
+            retrieveData(urlmercad,user);
         }
 
 
         return rootView;
     }
 
-    public void retrieveData(){
+    public void retrieveData(String url,String user){
 
-        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/show_visit_record.php",
+        StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -87,7 +101,7 @@ public class PremiumFragment extends Fragment implements DetailAdapter.ButtonCli
                                     String estado = object.getString("status");
                                     int horas = Integer.parseInt(tiempo) / 60; // Obtener la cantidad de horas
                                     int minutos = Integer.parseInt(tiempo) % 60; // Obtener la cantidad de minutos restantes
-                                    reg = new Register(id,inicio,local,motivo,fin,horas + " hrs " + minutos + " min",estado);
+                                    reg = new Register(id,inicio,local,motivo,fin,horas + " hrs " + minutos + " min",estado,user);
                                     RegisterList.add(reg);
                                     adapter_.notifyDataSetChanged();
                                 }
