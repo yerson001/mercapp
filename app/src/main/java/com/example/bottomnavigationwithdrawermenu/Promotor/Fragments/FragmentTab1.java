@@ -1,8 +1,11 @@
 package com.example.bottomnavigationwithdrawermenu.Promotor.Fragments;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
@@ -19,12 +22,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FragmentTab1 extends Fragment  {
+public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallback{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -111,12 +117,14 @@ public class FragmentTab1 extends Fragment  {
     private PfAdapter adapter;
     Frescos frecos;
     Button btn_insert;
+    ImageButton preguntas;
     String Distribuidor;
     String CategoriA;
     EditText txtCliente, txtTelefono, txtDireccion,txtNombreComercial,txtVentas,txtObservaciones;
 
     private CheckBox checkBoxExhibidor;
     private CheckBox checkBoxPop;
+    private PfAdapter pfAdapter;
 
     GpsTracker gpsTracker;
 
@@ -134,6 +142,9 @@ public class FragmentTab1 extends Fragment  {
             frecos = new Frescos(Integer.toHexString(i), polvosarr[i]);
             pro_polvos.add(frecos);
         }
+
+        pfAdapter = new PfAdapter(getContext());
+        pfAdapter.setCallback(this);
 
 
         autoCompleteTxt = rootView.findViewById(R.id.distribuidor_txt);
@@ -190,6 +201,14 @@ public class FragmentTab1 extends Fragment  {
             @Override
             public void onClick(View v) {
                 insertData();
+            }
+        });
+
+        preguntas = rootView.findViewById(R.id.preguntas_txt);
+        preguntas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPreguntas();
             }
         });
 
@@ -400,6 +419,47 @@ public class FragmentTab1 extends Fragment  {
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(toastLayout);
         toast.show();
+    }
+
+    private void showPreguntas() {
+
+        final Dialog dialogp = new Dialog(getContext());
+        dialogp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogp.setContentView(R.layout.bottomsheetlayoutquiz);
+
+        ImageView cancelButton = dialogp.findViewById(R.id.cancelButton);
+        ImageView cancelButtonp = dialogp.findViewById(R.id.cancelButtonp);
+
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogp.dismiss();
+            }
+        });
+
+        cancelButtonp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogp.dismiss();
+            }
+        });
+
+        dialogp.show();
+        dialogp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogp.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialogp.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+
+
+    @Override
+    public void onValuesUpdated(double accumulatedValue) {
+        double ventas_totales=0;
+        ventas_totales+=accumulatedValue;
+        txtVentas.setText(ventas_totales+"");
+        Toast.makeText(getContext(),"accumulate: "+ventas_totales+" ",Toast.LENGTH_SHORT).show();
     }
 
 }

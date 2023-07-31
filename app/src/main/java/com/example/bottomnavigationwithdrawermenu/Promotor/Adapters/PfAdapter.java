@@ -36,6 +36,9 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder> {
         this.pfList = pfList;
         this.pfList_r = pfList_r;
     }
+    public PfAdapter(Context context) {
+        this.context = context;
+    }
 
     public List<Frescos> getPfList() {
         return pfList;

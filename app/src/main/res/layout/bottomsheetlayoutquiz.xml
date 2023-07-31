@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialogbkg"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:id="@+id/cal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="70dp"
+            android:id="@+id/cancelButtonp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_remove"
+            android:layout_gravity="center|top"
+            android:scaleType="centerCrop"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/createText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:text="Cuestionario de Promotor de Ventas"
+            android:padding="8dp"
+            android:textColor="@color/lavender"
+            android:layout_marginStart="12dp"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_clear"
+                android:layout_marginEnd="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/cancelButton"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="11dp"
+        android:background="#DEE4E4"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Actividad de Competencia"
+            android:textStyle="bold"
+            android:textSize="8dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:gravity="end"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. ¿Ha observado alguna actividad promocional o de marketing de la competencia recientemente?"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:height="30dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/question1"
+            android:textSize="9dp"
+            android:hint="Respuesta"
+            android:layout_height="wrap_content"
+            android:background="@drawable/snippervo"
+            />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. ¿Qué marcas de condimentos compiten con nosotros en su tienda?"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:height="30dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/question2"
+            android:textSize="9dp"
+            android:hint="Respuesta"
+            android:layout_height="wrap_content"
+            android:background="@drawable/snippervo"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="11dp"
+            android:layout_marginTop="5dp"
+            android:background="#DEE4E4"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Rotación"
+                android:textStyle="bold"
+                android:textSize="8dp"
+                android:layout_gravity="center"
+                android:gravity="end"
+                android:layout_marginEnd="20dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3. ¿Cuáles son los condimentos más difíciles de vender? ¿Por qué?"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:height="30dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/question3"
+            android:textSize="9dp"
+            android:hint="Respuesta"
+            android:layout_height="wrap_content"
+            android:background="@drawable/snippervo"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="11dp"
+            android:background="#DEE4E4"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Experiencia con los distribuidores"
+                android:textStyle="bold"
+                android:textSize="8dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:gravity="end"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4. ¿Con qué frecuencia los distribuidores de nuestros productos visitan su tienda?"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <CheckBox
+                android:id="@+id/checkBoxDiariamente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Diario"
+                android:textSize="8dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxSemanalmente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semanal"
+                android:textSize="8dp"
+                android:layout_marginStart="0dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxQuincenalmente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quincenal"
+                android:textSize="8dp"
+                android:layout_marginStart="0dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxMensualmente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mensual"
+                android:textSize="8dp"
+                android:layout_marginStart="0dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxRaraVez"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rara vez"
+                android:textSize="8dp"
+                android:layout_marginStart="0dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/layoutVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/btnLoginh"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:text="REGISTRAR"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        >
+    </LinearLayout>
+</LinearLayout>

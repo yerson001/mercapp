@@ -86,7 +86,6 @@
                     android:backgroundTint="@color/white"
                     android:src="@drawable/baseline_refresh_24"
                     />
-
             </LinearLayout>
         </LinearLayout>
 
