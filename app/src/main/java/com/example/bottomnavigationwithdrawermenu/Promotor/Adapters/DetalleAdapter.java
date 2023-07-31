@@ -33,12 +33,12 @@ public class DetalleAdapter  extends ArrayAdapter<detalle>
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_reporte,null,true);
 
-        TextView tvID = view.findViewById(R.id.id_txt);
-        TextView tvFecha = view.findViewById(R.id.fecha_txt);
-        TextView tvDistribuidor = view.findViewById(R.id.distribuidor_txt);
-        TextView tvCliente = view.findViewById(R.id.cliente_txt);
-        TextView tvTelefono = view.findViewById(R.id.telefono_txt);
-        TextView tvDireccion = view.findViewById(R.id.direccion_txt);
+        TextView tvID = view.findViewById(R.id.id_txt_pro);
+        TextView tvFecha = view.findViewById(R.id.fecha_txt_pro);
+        TextView tvDistribuidor = view.findViewById(R.id.distribuidor_txt_pro);
+        TextView tvCliente = view.findViewById(R.id.cliente_txt_pro);
+        TextView tvTelefono = view.findViewById(R.id.telefono_txt_pro);
+        TextView tvDireccion = view.findViewById(R.id.direccion_txt_pro);
 
         tvID.setText(detalleList.get(position).getId());
         tvFecha.setText(detalleList.get(position).getFecha());

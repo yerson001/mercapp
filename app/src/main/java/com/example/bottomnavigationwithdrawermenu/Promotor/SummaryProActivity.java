@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -29,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bottomnavigationwithdrawermenu.MainActivity;
 import com.example.bottomnavigationwithdrawermenu.Promotor.Adapters.SummaryProAdapter;
 import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.detalle;
 import com.example.bottomnavigationwithdrawermenu.R;
@@ -66,7 +68,7 @@ public class SummaryProActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 // Acciones a realizar cuando se hace clic en un elemento
-                //Toast.makeText(SummaryActivity.this, SumaryArrayList.get(position).getTienda(), Toast.LENGTH_SHORT).show();
+                // Acciones a realizar cuando se hace clic en un elemento
                 showAlertDialog(
                         SumaryArrayList.get(position).getId(),
                         SumaryArrayList.get(position).getDistribuidor(),
@@ -136,6 +138,8 @@ public class SummaryProActivity extends AppCompatActivity {
                                  String Nombre_comercial,String ventas,String Observacines) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(SummaryProActivity.this);
+        //Toast.makeText(SummaryProActivity.this, client, Toast.LENGTH_SHORT).show();
+
 
         SpannableStringBuilder spannableTitle = new SpannableStringBuilder(id + " - "+client);
         spannableTitle.setSpan(new RelativeSizeSpan(0.7f), 0, spannableTitle.length(), 0);
@@ -346,6 +350,15 @@ public class SummaryProActivity extends AppCompatActivity {
                 //actualizar_reporte(id,distribuidorvalue,clientevalue,direcionvalue,Nom_comercialvalue,ventacalue,obsvalue);
             }
         });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Lógica para cancelar la edición del elemento seleccionado
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void retrieveData(String url) {
@@ -430,5 +443,14 @@ public class SummaryProActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(SummaryProActivity.this);
         requestQueue.add(request);
         retrieveData(url);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username", "promotor");// In this part our send the username to mainactivity
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        // Finalizar la actividad actual
+        finish();
     }
 }

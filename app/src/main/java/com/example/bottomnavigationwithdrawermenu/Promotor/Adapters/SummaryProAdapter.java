@@ -102,12 +102,12 @@ public class SummaryProAdapter extends RecyclerView.Adapter<SummaryProAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtid = itemView.findViewById(R.id.id);
-            txtDistribuidor = itemView.findViewById(R.id.distribuidor_txt);
-            txtCliente = itemView.findViewById(R.id.cliente_txt);
-            txtDireccion = itemView.findViewById(R.id.direccion_txt);
-            txtTelefono = itemView.findViewById(R.id.telefono_txt);
-            fecha = itemView.findViewById(R.id.fecha);
+            txtid = itemView.findViewById(R.id.id_txt_pro);
+            txtDistribuidor = itemView.findViewById(R.id.distribuidor_txt_pro);
+            txtCliente = itemView.findViewById(R.id.cliente_txt_pro);
+            txtDireccion = itemView.findViewById(R.id.direccion_txt_pro);
+            txtTelefono = itemView.findViewById(R.id.telefono_txt_pro);
+            fecha = itemView.findViewById(R.id.fecha_txt_pro);
            // imageView = itemView.findViewById(R.id.imageView);
         }
     }

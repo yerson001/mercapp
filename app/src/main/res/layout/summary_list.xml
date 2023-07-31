@@ -14,14 +14,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="0dp">
 
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true">
+
+            >
 
             <TextView
                 android:id="@+id/id"
@@ -29,8 +30,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/rectagle"
-                android:gravity="center_vertical|center"
-                android:text="17888870"
+                android:text="77"
                 android:textColor="@android:color/white"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -39,6 +39,8 @@
                 android:id="@+id/producto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
                 android:text="TUCO SAZON SALSA FRASCO X 70 GRS"
                 android:textColor="@color/black"
                 android:textSize="12dp"
@@ -103,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="20dp"
             android:imeOptions="actionNext"
             android:text="pedido"
             android:layout_marginEnd="70dp"
@@ -118,10 +120,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="20dp"
             android:imeOptions="actionNext"
             android:text="inventario"
-            android:layout_marginEnd="17dp"
+            android:layout_marginEnd="15dp"
             android:textColor="#42A34F"
             android:textSize="8sp"
             android:layout_alignParentRight="true"
@@ -149,8 +151,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="20dp"
-            android:text="100"
+            android:layout_marginTop="25dp"
+            android:text="45"
             android:textColor="#042203"
             android:textSize="25sp"
             android:layout_centerHorizontal="true"
@@ -159,9 +161,19 @@
             android:layout_marginEnd="15dp"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="55dp"
+            android:layout_height="1dp"
+            android:background="#A1ABB3"
+            >
+
+        </LinearLayout>
 
 
     </RelativeLayout>
+
+
 
 </LinearLayout>
 
