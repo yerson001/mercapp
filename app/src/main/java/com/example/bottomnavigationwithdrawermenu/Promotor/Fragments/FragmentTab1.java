@@ -59,6 +59,14 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    /*****
+     * varibles to simple quiz to promoter this
+     * */
+
+    // implement remenber fuction
+    String question1,question2,question3;
+
+
     String[] Distribuidores = {"ADRIEL MAMANI-AREQUIPA",
                                "EMUNAH PERU S.A.C",
                                 "FERNANDO FLORES RAMOS",
@@ -137,6 +145,9 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
 
         pro_polvos.clear();
         Distribuidor="";
+        question1="";
+        question2="";
+        question3="";
         CategoriA="";
         for (int i = 1; i < polvosarr.length; i++) {
             frecos = new Frescos(Integer.toHexString(i), polvosarr[i]);
@@ -209,6 +220,10 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
             @Override
             public void onClick(View v) {
                 showPreguntas();
+
+                Log.d("question1",question1);
+                Log.d("question2",question2);
+                Log.d("question3",question3);
             }
         });
 
@@ -430,10 +445,24 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
         ImageView cancelButton = dialogp.findViewById(R.id.cancelButton);
         ImageView cancelButtonp = dialogp.findViewById(R.id.cancelButtonp);
 
+        EditText q1 = dialogp.findViewById(R.id.question1);
+        EditText q2 = dialogp.findViewById(R.id.question2);
+        EditText q3 = dialogp.findViewById(R.id.question3);
+
+
+        q1.setText(question1);
+        q2.setText(question2);
+        q3.setText(question3);
+
+
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                question1 = q1.getText().toString();
+                question2 = q2.getText().toString();
+                question3 = q3.getText().toString();
                 dialogp.dismiss();
             }
         });
@@ -442,6 +471,9 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
             @Override
             public void onClick(View view) {
                 dialogp.dismiss();
+                question1 = q1.getText().toString();
+                question2 = q2.getText().toString();
+                question3 = q3.getText().toString();
             }
         });
 
