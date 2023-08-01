@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="1dp"
                     >
 
                     <EditText
@@ -87,7 +87,7 @@
                         android:layout_width="match_parent"
                         android:padding="5dp"
                         android:textSize="14dp"
-                        android:hint="CLIENTE"
+                        android:hint="  CLIENTE(*)"
                         android:layout_height="wrap_content"
                         android:background="@drawable/snippervo"
                         android:inputType="textCapCharacters"
@@ -103,16 +103,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     >
                     <EditText
                         android:id="@+id/telefono_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="6dp"
+                        android:padding="5dp"
                         android:textSize="14sp"
-                        android:hint="TELÉFONO"
+                        android:hint="  TELÉFONO (.)"
                         android:inputType="number"
                         android:background="@drawable/snippervo"
                         android:layout_alignParentRight="true"
@@ -129,7 +128,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -139,22 +138,32 @@
                     android:padding="5dp"
                     android:id="@+id/direccion_txt"
                     android:textSize="14dp"
-                    android:hint="DIRECCIÓN"
+                    android:layout_marginEnd="50dp"
+                    android:hint="  DIRECCIÓN (*)"
                     android:inputType="textCapCharacters"
                     android:layout_height="wrap_content"
                     android:background="@drawable/snippervo"
                     android:drawableStart="@drawable/baseline_add_location_24"
                     android:drawableLeft="@drawable/baseline_add_location_24" />
+
+                <ImageButton
+                    android:id="@+id/location_btn"
+                    android:layout_width="50dp"
+                    android:layout_marginTop="-10dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="-50dp"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/mapa"
+                    android:scaleType="centerCrop"
+                    />
             </LinearLayout>
-
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp">
                 <EditText
                     android:layout_width="170dp"
@@ -162,7 +171,7 @@
                     android:layout_marginTop="3dp"
                     android:id="@+id/nombre_co"
                     android:textSize="14dp"
-                    android:hint="NOMBRE COMERCIAL"
+                    android:hint="  NOMBRE COMERCIAL (.)"
                     android:layout_height="45dp"
                     android:inputType="textCapCharacters"
                     android:layout_gravity="center"
@@ -174,7 +183,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_margin="10dp"
+                        android:layout_margin="1dp"
                         android:hint="CATEGORIA"
                         android:textSize="4sp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
@@ -183,7 +192,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/categoria_txt"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:inputType="none"
                             android:layout_gravity="center"
                             android:textSize="12sp"
@@ -265,23 +274,26 @@
 
             <ImageButton
                 android:id="@+id/btnSumar"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/baseline_add_box_24" />
+                android:layout_marginTop="15dp"
+                android:src="@drawable/add_buttom"
+                android:scaleType="centerCrop"
+                android:background="@color/white"
+                />
 
             <!-- Alinear el EditText al centro horizontalmente -->
             <EditText
                 android:id="@+id/ventas_txt"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
                 android:layout_toStartOf="@id/preguntas_txt"
                 android:layout_toEndOf="@id/btnSumar"
                 android:background="@drawable/snippervo"
                 android:drawableStart="@drawable/baseline_monetization_on_24"
-                android:hint="VENTAS S/."
+                android:hint="  VENTAS S/. (*)"
                 android:inputType="numberDecimal"
                 android:padding="10dp"
                 android:textSize="14sp" />
@@ -293,8 +305,9 @@
                 android:layout_marginStart="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:backgroundTint="#EAE9EF"
-                android:src="@drawable/baseline_quiz_24" />
+                android:scaleType="centerCrop"
+                android:background="@color/white"
+                android:src="@drawable/examenes" />
         </RelativeLayout>
 
 

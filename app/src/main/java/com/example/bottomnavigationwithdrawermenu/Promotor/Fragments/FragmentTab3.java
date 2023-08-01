@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public class FragmentTab3 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     String[] TipoEnvase = {"Display","Taper","Paquete","Bolsa","Frasco","Otros"};
-    String[] TipoProducto = {"Polvo","Fresco","Entero","Agranel","Otros"};
+    String[] TipoProducto = {"Polvo","Fresco","Entero","A granel","Otros"};
     String[] TipoSobre = {"Gigante","Pequeño","Sachet","Sobre Económico"};
     String[] ClasiProduct = { "Tradicional","No tradicinal","Otros"};
 
@@ -96,7 +97,7 @@ public class FragmentTab3 extends Fragment {
 
 
 
-        Button myButton = rootView.findViewById(R.id.btn_guardar);
+        ImageButton myButton = rootView.findViewById(R.id.btn_guardar);
 
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override

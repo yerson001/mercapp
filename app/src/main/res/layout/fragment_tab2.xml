@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+
                 >
             </LinearLayout>
 
@@ -30,7 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -41,11 +42,43 @@
                     android:padding="5dp"
                     android:id="@+id/direccion_txt"
                     android:textSize="14dp"
-                    android:hint="DIRECCIÓN"
-                    android:inputType="textCapCharacters"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="  DIRECCIÓN (*)"
+                    android:inputType="textCapCharacters|text"
                     android:layout_height="wrap_content"
                     android:background="@drawable/snippervo"
                     android:drawableStart="@drawable/baseline_add_location_24" />
+                <ImageButton
+                    android:id="@+id/location_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="-50dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/mapa"
+                    android:scaleType="centerCrop"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                >
+                <EditText
+                    android:layout_width="match_parent"
+                    android:padding="5dp"
+                    android:id="@+id/cliente_txt"
+                    android:textSize="14dp"
+                    android:hint="  CLIENTE (.)"
+                    android:inputType="textCapCharacters|text"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/snippervo"
+                    android:drawableStart="@drawable/baseline_person_add_alt_1_24" />
             </LinearLayout>
 
 
@@ -73,11 +106,13 @@
                         android:inputType="none"
                         android:layout_marginStart="5dp"
                         android:textSize="10sp"
-                        android:layout_marginEnd="50dp"
+                        android:layout_marginEnd="70dp"
                         android:background="@drawable/snippervo" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+<!--
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/update_btn"
                     android:layout_width="wrap_content"
@@ -86,6 +121,8 @@
                     android:backgroundTint="@color/white"
                     android:src="@drawable/baseline_refresh_24"
                     />
+                -->
+
             </LinearLayout>
         </LinearLayout>
 
