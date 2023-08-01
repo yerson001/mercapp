@@ -69,11 +69,11 @@ public class HomeFragment extends Fragment implements MenuAdapter.OnItemClickLis
     private List<itemMenu> createOptionList() {
 
         List<itemMenu> options = new ArrayList<>();
-        options.add(new itemMenu(R.drawable.baseline_diversity_3_24, "PROMOTOR VENTAS"));
-        options.add(new itemMenu(R.drawable.baseline_add_business_24, "ACOMPAÑAMIENTO"));
-        options.add(new itemMenu(R.drawable.baseline_monetization_on_24, "REPORTE PRECIOS"));
-        options.add(new itemMenu(R.drawable.baseline_content_paste_go_24, "INVENTARIO"));
-        options.add(new itemMenu(R.drawable.settings_icn, "AJUSTES"));
+        options.add(new itemMenu(R.drawable.grupo, "PROMOTOR VENTAS"));
+        options.add(new itemMenu(R.drawable.distribucion, "ACOMPAÑAMIENTO"));
+        options.add(new itemMenu(R.drawable.lprecios, "REPORTE PRECIOS"));
+        options.add(new itemMenu(R.drawable.factura, "INVENTARIO"));
+        options.add(new itemMenu(R.drawable.ajuste, "AJUSTES"));
         // Agrega más elementos según tus necesidades
         return options;
     }

@@ -100,9 +100,9 @@
                 android:background="@drawable/snipperg"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_currency_exchange_24"/>
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/salarios"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,9 +126,10 @@
                 android:background="@drawable/snipperp"
                 android:paddingBottom="7dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_assured_workload_24"/>
+                    android:layout_width="30dp"
+                    android:layout_marginTop="-5dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/caridad"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -155,23 +156,25 @@
                 android:orientation="horizontal"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:background="@drawable/snippers"
                 android:paddingBottom="5dp">
 
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_delivery_dining_24"/>
+                    android:layout_width="35dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="0dp"
+                    android:src="@drawable/entrega"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="𝐄𝐧𝐭𝐫𝐞𝐠𝐚 /𝐏𝐞𝐝𝐢𝐝𝐨"
                     android:textColor="#0D47A1"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginStart="-5dp"
                     android:layout_marginLeft="10dp"
                     android:textSize="12sp"/>
 
@@ -189,15 +192,16 @@
                 android:background="@drawable/snipperv"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_domain_add_24"/>
+                    android:layout_width="35dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/inventario"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="𝐈𝐧𝐯 /𝐏𝐞𝐝𝐢𝐝𝐨"
                     android:textColor="#0D47A1"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="10dp"
                     android:textSize="12sp"/>
             </LinearLayout>

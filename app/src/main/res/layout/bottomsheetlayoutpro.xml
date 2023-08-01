@@ -84,17 +84,16 @@
             android:orientation="horizontal"
             android:layout_width="85dp"
             android:layout_height="37dp"
-            android:paddingLeft="10dp"
             android:layout_marginTop="5dp"
-            android:paddingRight="10dp"
             android:background="@drawable/snipperg"
             android:layout_alignParentStart="true"
             >
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/baseline_play_arrow_24"/>
+                android:layout_marginStart="-45dp"
+                android:src="@drawable/comienzo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,7 +101,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="7dp"
                 android:textColor="#0D47A1"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="38dp"
                 android:textSize="14sp"/>
         </RelativeLayout>
 
@@ -115,7 +114,6 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/snipperp"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:paddingRight="10dp"
             android:paddingBottom="7dp">
@@ -123,12 +121,13 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_wb_sunny_24" />
+                android:layout_marginStart="-90dp"
+                android:src="@drawable/tiempo" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="3dp"
                 android:text="𝐃𝐮𝐫𝐚𝐧𝐭𝐞 𝐞𝐥 𝐃𝐢́a"
                 android:textColor="#0D47A1"
@@ -148,9 +147,10 @@
             >
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/baseline_stop_circle_24"/>
+                android:layout_marginStart="-60dp"
+                android:src="@drawable/ultimo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
