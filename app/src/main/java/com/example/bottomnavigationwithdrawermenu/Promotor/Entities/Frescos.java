@@ -2,8 +2,6 @@ package com.example.bottomnavigationwithdrawermenu.Promotor.Entities;
 
 public class Frescos {
     String id,name;
-    public Frescos(int conatdor, String producto_fresco) {
-    }
 
     public Frescos(String id, String name){
         this.id = id;

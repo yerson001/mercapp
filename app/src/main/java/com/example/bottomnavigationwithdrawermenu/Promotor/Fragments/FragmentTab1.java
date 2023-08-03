@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -41,13 +42,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity.Summary;
+import com.example.bottomnavigationwithdrawermenu.Mercaderista.SummaryActivity;
 import com.example.bottomnavigationwithdrawermenu.Promotor.Adapters.PfAdapter;
 import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.Frescos;
 import com.example.bottomnavigationwithdrawermenu.R;
 import com.example.bottomnavigationwithdrawermenu.Ubication.GpsTracker;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -65,7 +71,19 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
 
     // implement remenber fuction
     String question1,question2,question3;
+    private CheckBox checkBoxDiariamente;
+    private CheckBox checkBoxSemanalmente;
+    private CheckBox checkBoxQuincenalmente;
+    private CheckBox checkBoxMensualmente;
+    private CheckBox checkBoxRaraVez;
+    private CheckBox nunca_check;
+    AutoCompleteTextView autoCompleteTxtMarca;
+    AutoCompleteTextView autoCompleteTxtCondimentos;
 
+    private int opcion_quiz;
+    private static final String SERVER_URL = "https://emaprod.emaransac.com/direccion/init.php";
+    private RequestQueue requestQueue;
+    ArrayList<String>  marcas_competidores = new ArrayList<>();
 
     String[] Distribuidores = {"ADRIEL MAMANI-AREQUIPA",
                                "EMUNAH PERU S.A.C",
@@ -97,22 +115,8 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
                             "Carniceria",
                             "Pizzeria",
                             "Otros"};
-    String[] polvosarr = {"------SELECCIONE------",
-            "SAZONADOR COMPLETO  GIGANTE X 42 SBS",
-            "COMINO MOLIDO GIGANTE X 42 SBS",
-            "PIMIENTA BATAN GIGANTE X 42 SBS",
-            "PALILLO BATAN  GIGANTE X 42 SBS",
-            "TUCO SAZON SALSA BATAN GIGANTE X 42 SBS",
-            "AJO BATAN GIGANTE X 42 SBS",
-            "CANELA MOLIDA GIGANTE X 42 SBS",
-            "EL VERDE BATAN GIGANTE X 42 SBS",
-            "KION MOLIDO BATAN GIGANTE X 42 SBS"
-            ,"OREGANO SELECTO BATAN X 42 SBS",
-            "EL VERDE BATAN GIGANTE x 27 SBS",
-            "AJI PANCA FRESCO BATAN x 24 SBS",
-            "AJI AMARILLO FRESCO BATAN x24 SBS",
-            "AJO FRESCO BATAN x 24 SBS",
-            "CULANTRO FRESCO BATAN x 24 SBS"};
+
+    ArrayList<String>  polvosarr_pro = new ArrayList<>();
     AutoCompleteTextView autoCompleteTxt;
     ArrayAdapter<String> adapterDistribuidores;
 
@@ -129,6 +133,7 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
     String Distribuidor;
     String CategoriA;
     EditText txtCliente, txtTelefono, txtDireccion,txtNombreComercial,txtVentas,txtObservaciones;
+    EditText txtLocation;
 
     private CheckBox checkBoxExhibidor;
     private CheckBox checkBoxPop;
@@ -143,16 +148,46 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab1, container, false);
 
+
+//********************INIT SETTING ****************
         pro_polvos.clear();
+        marcas_competidores.clear();
+        polvosarr_pro.clear();
         Distribuidor="";
         question1="";
         question2="";
         question3="";
         CategoriA="";
+        opcion_quiz = 5;
+        retrieveData("https://emaransac.com/mercapp/promoter/get_competitor_brands.php");
+        retrieveData_pro("https://emaransac.com/mercapp/promoter/get_competitor_product.php","BATAN");
+        requestQueue = Volley.newRequestQueue(getContext());
+        String a_lati = "0";
+        String a_long = "0";
+        a_lati = getLocs(1);
+        a_long = getLocs(2);
+        GeoReversa(Double.parseDouble(a_lati),Double.parseDouble(a_long));
+        //********************INIT SETTING ****************
+
+
+/*
         for (int i = 1; i < polvosarr.length; i++) {
             frecos = new Frescos(Integer.toHexString(i), polvosarr[i]);
             pro_polvos.add(frecos);
         }
+        */
+
+        ImageButton  imgbtn = rootView.findViewById(R.id.location_btn_tab1);
+        imgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String a_lati = getLocs(1);
+                String a_long = getLocs(2);
+                a_lati = getLocs(1);
+                a_long = getLocs(2);
+                GeoReversa(Double.parseDouble(a_lati),Double.parseDouble(a_long));
+            }
+        });
 
         pfAdapter = new PfAdapter(getContext());
         pfAdapter.setCallback(this);
@@ -170,6 +205,7 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
 
         recyclerView = rootView.findViewById(R.id.mypolvos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //adapter = new PfAdapter(getContext(), pro_polvos,pro_polvos);
         adapter = new PfAdapter(getContext(), pro_polvos,pro_polvos);
         recyclerView.setAdapter(adapter);
         //adapter.setCallback(getContext());
@@ -181,6 +217,8 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
         txtNombreComercial = rootView.findViewById(R.id.nombre_co);
         txtVentas = rootView.findViewById(R.id.ventas_txt);
         txtObservaciones = rootView.findViewById(R.id.observaciones_txt);
+
+        txtLocation = rootView.findViewById(R.id.location_txt);
 
         checkBoxExhibidor = rootView.findViewById(R.id.exhibidor);
         checkBoxPop = rootView.findViewById(R.id.pop);
@@ -226,6 +264,7 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
                 Log.d("question3",question3);
             }
         });
+
 
         return rootView;
     }
@@ -371,12 +410,7 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
                     txtVentas.setText("");
                     txtObservaciones.setText("");
                     pro_polvos.clear();
-
-                    for (int i = 1; i < polvosarr.length; i++) {
-                        frecos = new Frescos(Integer.toHexString(i), polvosarr[i]);
-                        pro_polvos.add(frecos);
-                    }
-
+                    retrieveData_pro("https://emaransac.com/mercapp/promoter/get_competitor_product.php","BATAN");
                     adapter.notifyDataSetChanged();
                 }
             });
@@ -445,14 +479,87 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
         ImageView cancelButton = dialogp.findViewById(R.id.cancelButton);
         ImageView cancelButtonp = dialogp.findViewById(R.id.cancelButtonp);
 
+        checkBoxDiariamente = dialogp.findViewById(R.id.checkBoxDiariamente);
+        checkBoxSemanalmente = dialogp.findViewById(R.id.checkBoxSemanalmente);
+        checkBoxQuincenalmente = dialogp.findViewById(R.id.checkBoxQuincenalmente);
+        checkBoxMensualmente = dialogp.findViewById(R.id.checkBoxMensualmente);
+        checkBoxRaraVez = dialogp.findViewById(R.id.checkBoxRaraVez);
+        nunca_check = dialogp.findViewById(R.id.nunca);
+
+        CheckBox[] checkBoxesArray = new CheckBox[6];
+        checkBoxesArray[0] = checkBoxDiariamente;
+        checkBoxesArray[1] = checkBoxSemanalmente;
+        checkBoxesArray[2] = checkBoxQuincenalmente;
+        checkBoxesArray[3] = checkBoxMensualmente;
+        checkBoxesArray[4] = checkBoxRaraVez;
+        checkBoxesArray[5] = nunca_check;
+
+        // Agregar el listener a todos los CheckBox
+        checkBoxDiariamente.setOnCheckedChangeListener(listener);
+        checkBoxSemanalmente.setOnCheckedChangeListener(listener);
+        checkBoxQuincenalmente.setOnCheckedChangeListener(listener);
+        checkBoxMensualmente.setOnCheckedChangeListener(listener);
+        checkBoxRaraVez.setOnCheckedChangeListener(listener);
+
+        // the best option is create a function but i dont have time for this
+
+
+
         EditText q1 = dialogp.findViewById(R.id.question1);
         EditText q2 = dialogp.findViewById(R.id.question2);
         EditText q3 = dialogp.findViewById(R.id.question3);
+        checkBoxesArray[opcion_quiz].setChecked(true);
 
 
         q1.setText(question1);
         q2.setText(question2);
         q3.setText(question3);
+
+        ArrayAdapter<String> adapterMarca;
+        ArrayAdapter<String> condimentos;
+
+        //***********************
+        autoCompleteTxtMarca = dialogp.findViewById(R.id.marca_quiz_txt);
+        adapterMarca = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, marcas_competidores);
+        autoCompleteTxtMarca.setAdapter(adapterMarca);
+        autoCompleteTxtMarca.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCondimento = (String) parent.getItemAtPosition(position);
+                Toast.makeText(getContext(),selectedCondimento,Toast.LENGTH_SHORT).show();
+
+                // Obtener el contenido actual del EditText
+                String contenidoActual = q2.getText().toString();
+
+                // Concatenar el contenido nuevo al contenido actual y agregar una coma
+                String contenidoFinal = contenidoActual + selectedCondimento + " - ";
+
+                // Establecer el contenido final en el EditText
+                q2.setText(contenidoFinal);
+            }
+        });
+        //*******************************
+
+        autoCompleteTxtCondimentos = dialogp.findViewById(R.id.condimentos);
+        condimentos = new ArrayAdapter<>(requireContext(), R.layout.product_item, polvosarr_pro);
+        autoCompleteTxtCondimentos.setAdapter(condimentos);
+
+        autoCompleteTxtCondimentos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCondimento = (String) parent.getItemAtPosition(position);
+                Toast.makeText(getContext(),selectedCondimento,Toast.LENGTH_SHORT).show();
+
+                // Obtener el contenido actual del EditText
+                String contenidoActual = q3.getText().toString();
+
+                // Concatenar el contenido nuevo al contenido actual y agregar una coma
+                String contenidoFinal = contenidoActual + selectedCondimento + " - ";
+
+                // Establecer el contenido final en el EditText
+                q3.setText(contenidoFinal);
+            }
+        });
 
 
 
@@ -492,6 +599,135 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
         ventas_totales+=accumulatedValue;
         txtVentas.setText(ventas_totales+"");
         Toast.makeText(getContext(),"accumulate: "+ventas_totales+" ",Toast.LENGTH_SHORT).show();
+    }
+
+    private final CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            // Desactivar todos los CheckBox
+            checkBoxDiariamente.setChecked(false);
+            checkBoxSemanalmente.setChecked(false);
+            checkBoxQuincenalmente.setChecked(false);
+            checkBoxMensualmente.setChecked(false);
+            checkBoxRaraVez.setChecked(false);
+
+            // Activar solo el CheckBox que fue seleccionado
+            buttonView.setChecked(isChecked);
+
+            if(checkBoxDiariamente.isChecked()){
+                opcion_quiz = 0;
+            } else if (checkBoxSemanalmente.isChecked()) {
+                opcion_quiz = 1;
+            } else if (checkBoxQuincenalmente.isChecked()) {
+                opcion_quiz = 2;
+            }else if(checkBoxMensualmente.isChecked()){
+                opcion_quiz = 3;
+            }else{
+                opcion_quiz = 4;
+            }
+            //Toast.makeText(getContext(),"num: "+opcion_quiz,Toast.LENGTH_LONG).show();
+        }
+    };
+
+    public void retrieveData(String url) {
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        marcas_competidores.clear();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String exito = jsonObject.getString("exito");
+                            JSONArray jsonArray = jsonObject.getJSONArray("datos");
+                            if (exito.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String id = object.getString("id");
+                                    String marcas = object.getString("brand_name");
+
+                                    Log.d("Retrival ", marcas);
+                                    marcas_competidores.add(marcas);
+                                }
+                                //summaryAdapter.notifyDataSetChanged(); // Notificar cambios en el adaptador después de agregar los elementos
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(request);
+    }
+
+    public void retrieveData_pro(String apiUrl, String brand) {
+        String url = apiUrl + "?marca=" + URLEncoder.encode(brand);
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        polvosarr_pro.clear();
+                        pro_polvos.clear();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String exito = jsonObject.getString("exito");
+                            JSONArray jsonArray = jsonObject.getJSONArray("datos");
+                            if (exito.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String id = object.getString("id");
+                                    String name_product = object.getString("name_product");
+                                    String reference_code = object.getString("reference_code");
+                                    String barcode = object.getString("barcode");
+                                    Log.d("Retrival 2 ",id+"  "+ name_product);
+                                    polvosarr_pro.add(name_product);
+                                    frecos = new Frescos(id,name_product);
+                                    pro_polvos.add(frecos);
+                                }
+                                adapter.notifyDataSetChanged(); // Notificar cambios en el adaptador después de agregar los elementos
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(request);
+    }
+
+    private void GeoReversa(double latitud, double longitud) {
+        // Construye la URL completa con los parámetros de latitud y longitud
+        String urlWithParams = SERVER_URL + "?latitud=" + latitud + "&longitud=" + longitud;
+
+        StringRequest request = new StringRequest(Request.Method.GET, urlWithParams,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Aquí puedes imprimir la respuesta recibida desde el servidor
+                        Log.d("RESPONSE", "Respuesta del servidor: " + response);
+                        txtLocation.setText("    "+response.toUpperCase());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Aquí puedes manejar los errores en caso de que la petición falle
+                        Log.e("ERROR", "Error en la petición: " + error.getMessage());
+                    }
+                });
+
+        requestQueue.add(request);
     }
 
 }

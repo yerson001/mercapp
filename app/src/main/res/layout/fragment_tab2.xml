@@ -13,6 +13,7 @@
         android:layout_marginBottom="30dp"
         >
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,31 +32,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                >
+                android:orientation="horizontal">
                 <EditText
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:padding="5dp"
                     android:id="@+id/direccion_txt"
                     android:textSize="14dp"
                     android:layout_marginEnd="50dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="  DIRECCIÓN (*)"
-                    android:inputType="textCapCharacters|text"
+                    android:hint="  UBICACIÓN"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapCharacters"
                     android:layout_height="wrap_content"
                     android:background="@drawable/snippervo"
-                    android:drawableStart="@drawable/baseline_add_location_24" />
+                    android:drawableStart="@drawable/baseline_map_24"
+                    android:scaleType="centerCrop"
+                    />
+
                 <ImageButton
                     android:id="@+id/location_btn"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_height="45dp"
                     android:layout_marginStart="-50dp"
-                    android:layout_marginEnd="5dp"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="#E2EDED"
                     android:src="@drawable/mapa"
                     android:scaleType="centerCrop"
                     />
@@ -75,6 +79,7 @@
                     android:id="@+id/cliente_txt"
                     android:textSize="14dp"
                     android:hint="  CLIENTE (.)"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapCharacters|text"
                     android:layout_height="wrap_content"
                     android:background="@drawable/snippervo"

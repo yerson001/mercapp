@@ -91,12 +91,13 @@
             android:padding="5dp"
             android:id="@+id/question1"
             android:textSize="9dp"
+            android:imeOptions="actionNext"
             android:hint="Respuesta"
             android:layout_height="wrap_content"
             android:background="@drawable/snippervo"
             />
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2. ¿Qué marcas de condimentos compiten con nosotros en su tienda?"
@@ -104,17 +105,53 @@
             android:textSize="10dp"
             />
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:height="30dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:id="@+id/question2"
-            android:textSize="9dp"
-            android:hint="Respuesta"
-            android:layout_height="wrap_content"
-            android:background="@drawable/snippervo"
-            />
+            android:layout_marginLeft="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+                android:hint="MARCAS"
+                android:textSize="2sp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/marca_quiz_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:inputType="none"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="7sp"
+                    android:background="@drawable/snippervo" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:layout_marginTop="-1dp"
+                android:id="@+id/question2"
+                android:textSize="8dp"
+                android:textStyle="bold"
+                android:hint="marca 1,marca 2, ...."
+                android:inputType="textCapCharacters"
+                android:background="@drawable/snippervo"
+                />
+        </LinearLayout>
+
+
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="11dp"
@@ -142,17 +179,50 @@
             android:layout_marginTop="5dp"
             />
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:height="30dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:id="@+id/question3"
-            android:textSize="9dp"
-            android:hint="Respuesta"
-            android:layout_height="wrap_content"
-            android:background="@drawable/snippervo"
-            />
+            android:layout_marginLeft="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="150dp"
+                android:layout_height="37dp"
+                android:layout_margin="1dp"
+                android:hint="PRODUCTOS"
+                android:textSize="2sp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/condimentos"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:inputType="none"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="7sp"
+                    android:background="@drawable/snippervo" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:layout_marginTop="-1dp"
+                android:id="@+id/question3"
+                android:textSize="8dp"
+                android:textStyle="bold"
+                android:hint="producto 1,producto 2, ...."
+                android:inputType="textCapCharacters"
+                android:background="@drawable/snippervo"
+                />
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="11dp"
@@ -182,85 +252,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:layout_marginStart="-7dp">
 
             <CheckBox
                 android:id="@+id/checkBoxDiariamente"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Diario"
-                android:textSize="8dp"
-                />
+                android:textSize="7dp" />
 
             <CheckBox
                 android:id="@+id/checkBoxSemanalmente"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Semanal"
-                android:textSize="8dp"
-                android:layout_marginStart="0dp"
-                />
+                android:textSize="7dp" />
 
             <CheckBox
                 android:id="@+id/checkBoxQuincenalmente"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Quincenal"
-                android:textSize="8dp"
-                android:layout_marginStart="0dp"
-                />
+                android:textSize="7dp" />
 
             <CheckBox
                 android:id="@+id/checkBoxMensualmente"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Mensual"
-                android:textSize="8dp"
-                android:layout_marginStart="0dp"
-                />
+                android:textStyle="bold"
+                android:textSize="7dp" />
 
             <CheckBox
                 android:id="@+id/checkBoxRaraVez"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Rara vez"
-                android:textSize="8dp"
-                android:layout_marginStart="0dp"
-                />
+                android:textSize="7dp" />
+
+            <CheckBox
+                android:id="@+id/nunca"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nunca"
+                android:textSize="7dp"
+                android:visibility="gone" />
+
         </LinearLayout>
     </LinearLayout>
-
-
-
-
-
-
-
-    <LinearLayout
-        android:id="@+id/layoutVideo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
-
-        <Button
-            android:id="@+id/btnLoginh"
-            android:layout_width="170dp"
-            android:layout_height="40dp"
-            android:text="REGISTRAR"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
-
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

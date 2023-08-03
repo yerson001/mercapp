@@ -8,11 +8,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -22,9 +24,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.bottomnavigationwithdrawermenu.MainActivity;
 import com.example.bottomnavigationwithdrawermenu.Promotor.PromotorActivity;
 import com.example.bottomnavigationwithdrawermenu.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class FragmentTab3 extends Fragment {
 
@@ -47,9 +61,11 @@ public class FragmentTab3 extends Fragment {
 
     AutoCompleteTextView clasificacion;
     ArrayAdapter<String> adapterclasificacion;
-
+    ArrayList<String> marcas_competidores = new ArrayList<>();
     private String mParam1;
     private String mParam2;
+
+    AutoCompleteTextView autoCompleteTxtMarca;
     public FragmentTab3() {
         // Required empty public constructor
     }
@@ -78,6 +94,24 @@ public class FragmentTab3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab3, container, false);
+        marcas_competidores.clear();
+        retrieveData("https://emaransac.com/mercapp/promoter/get_competitor_brands.php");
+        ArrayAdapter<String> adapterMarca;
+        //***********************
+        autoCompleteTxtMarca = rootView.findViewById(R.id.marca_txt_tab3);
+        adapterMarca = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, marcas_competidores);
+        autoCompleteTxtMarca.setAdapter(adapterMarca);
+
+        autoCompleteTxtMarca.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCondimento = (String) parent.getItemAtPosition(position);
+                Toast.makeText(getContext(),selectedCondimento,Toast.LENGTH_SHORT).show();
+                retrieveData("https://emaransac.com/mercapp/promoter/get_competitor_brands.php");
+            }
+        });
+
+        //*******************************
 
         tipoenvase = rootView.findViewById(R.id.tipo_envase_txt);
         adaptertipoenvase = new ArrayAdapter<>(requireContext(), R.layout.distrib_item, TipoEnvase);
@@ -140,5 +174,40 @@ public class FragmentTab3 extends Fragment {
         dialogp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogp.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialogp.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    public void retrieveData(String url) {
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        marcas_competidores.clear();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String exito = jsonObject.getString("exito");
+                            JSONArray jsonArray = jsonObject.getJSONArray("datos");
+                            if (exito.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String id = object.getString("id");
+                                    String marcas = object.getString("brand_name");
+
+                                    Log.d("Retrival ", marcas);
+                                    marcas_competidores.add(marcas);
+                                }
+                                //summaryAdapter.notifyDataSetChanged(); // Notificar cambios en el adaptador después de agregar los elementos
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(request);
     }
 }
