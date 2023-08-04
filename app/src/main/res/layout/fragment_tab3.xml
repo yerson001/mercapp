@@ -79,7 +79,7 @@
                         >
 
                         <EditText
-                            android:id="@+id/cliente_txt"
+                            android:id="@+id/nombre_txt_tab3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/snipper"
@@ -221,34 +221,36 @@
                     android:layout_height="match_parent"
                     android:padding="5dp"
                         android:layout_marginTop="5dp"
-                    android:id="@+id/nombre_co"
+                    android:id="@+id/gramage_txt_tab3"
                     android:textSize="14dp"
                     android:hint="GRAMAJE (g)"
                     android:inputType="textCapCharacters|numberDecimal"
                     android:background="@drawable/snipper"
                     android:drawableStart="@drawable/baseline_balance_24"
                     />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:id="@+id/codeimg"
+                        android:textSize="7dp"
+                        android:textColor="@color/light_blue_900"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="55dp"
+                        />
 
                     <ImageButton
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginEnd="80dp"
+                        android:layout_marginEnd="10dp"
                         android:src="@drawable/add_img"
-                        android:id="@+id/browse"
+                        android:id="@+id/browser_io"
                         android:layout_marginTop="5dp"
                         android:background="@android:color/transparent"
                         android:scaleType="centerInside"
                         android:layout_alignParentEnd="true"
                         />
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/imagen"
-                        android:layout_alignParentEnd="true"
-                        />
-
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -268,7 +270,7 @@
                 android:height="50dp"
                 android:layout_marginTop="20dp"
                 android:padding="5dp"
-                android:id="@+id/observaciones_txt"
+                android:id="@+id/observaciones_txt_tab3"
                 android:textSize="12dp"
                 android:hint="OBSERVACIONES"
                 android:layout_height="wrap_content"
@@ -285,7 +287,7 @@
 
 
                 <Button
-                    android:id="@+id/guardar"
+                    android:id="@+id/agregar_producto_tab3"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"

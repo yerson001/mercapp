@@ -1,7 +1,5 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="1000dp" />
-    <solid android:color="#00000000" />
-    <stroke
-        android:width="2dp"
-        android:color="#FFFFFF" />
+<!-- circle.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#F6F3F3" /> <!-- Aquí puedes cambiar el color del círculo -->
 </shape>
