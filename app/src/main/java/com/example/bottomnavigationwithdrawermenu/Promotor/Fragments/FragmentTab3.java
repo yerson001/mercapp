@@ -465,10 +465,6 @@ public class FragmentTab3 extends Fragment {
         }
 
 
-
-        final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("cargando...");
-
         if(marca.isEmpty()){
             Toast.makeText(getContext(), "Ingrese Marca ", Toast.LENGTH_SHORT).show();
             return;
@@ -486,6 +482,10 @@ public class FragmentTab3 extends Fragment {
             return;
         }
         else{
+
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("cargando...");
+
             StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/promoter/insert_product.php",
                     new Response.Listener<String>() {
                         @Override

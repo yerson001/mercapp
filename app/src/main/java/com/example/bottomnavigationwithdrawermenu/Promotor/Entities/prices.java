@@ -31,4 +31,14 @@ public class prices {
 
     public String getItem(){return marca+","+gramaje+","+precio;};
 
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
 }

@@ -409,6 +409,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 itemsList.clear();
                 itemsList.add("1. Banco de Crédito del Perú");
                 itemsList.add("2. Scotiabank");
+                itemsList.add("3. Supermercado");
                 adapter.notifyDataSetChanged();
             }
         });
@@ -430,6 +431,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 itemsList.clear();
                 itemsList.add("1. Banco de Crédito del Perú");
                 itemsList.add("2. Scotiabank");
+                itemsList.add("3. Supermercado");
 
                 adapter.notifyDataSetChanged();
             }
@@ -654,6 +656,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     txtlocal.setText(texto);
                 }
                 if (itemsList.get(position).equals("2. Scotiabank")) {
+                    String texto = itemsList.get(position).substring(itemsList.get(position).indexOf(".")+2);
+                    txtlocal.setText(texto);
+                }
+                if (itemsList.get(position).equals("3. Supermercado")) {
                     String texto = itemsList.get(position).substring(itemsList.get(position).indexOf(".")+2);
                     txtlocal.setText(texto);
                 }
