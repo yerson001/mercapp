@@ -1,11 +1,17 @@
 package com.example.bottomnavigationwithdrawermenu.Promotor.Entities;
 
+import com.example.bottomnavigationwithdrawermenu.itemMenu;
+
 public class Frescos {
+    public itemMenu valueCount;
+    public itemMenu valueSale;
     String id,name;
+    String venta;
 
     public Frescos(String id, String name){
         this.id = id;
         this.name = name;
+        this.venta = "0";
     }
     public String getId(){
         return id;
@@ -21,6 +27,8 @@ public class Frescos {
     public String setNombre(){
         return this.name;
     }
+
+    public String getVenta(){return this.venta;}
 
     private boolean isChecked;
 

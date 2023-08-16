@@ -86,6 +86,7 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
     ArrayList<String>  marcas_competidores = new ArrayList<>();
 
     String[] Distribuidores = {"ADRIEL MAMANI-AREQUIPA",
+                            "ROMMEL",
                                "EMUNAH PERU S.A.C",
                                 "FERNANDO FLORES RAMOS",
                                 "JOSE LUIS CARRASCO-CAMANA",
@@ -130,6 +131,7 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
     Frescos frecos;
     Button btn_insert;
     ImageButton preguntas;
+    ImageButton summar;
     String Distribuidor;
     String CategoriA;
     EditText txtCliente, txtTelefono, txtDireccion,txtNombreComercial,txtVentas,txtObservaciones;
@@ -166,7 +168,11 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
         String a_long = "0";
         a_lati = getLocs(1);
         a_long = getLocs(2);
+
+
         GeoReversa(Double.parseDouble(a_lati),Double.parseDouble(a_long));
+
+
         //********************INIT SETTING ****************
 
 
@@ -185,6 +191,7 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
                 String a_long = getLocs(2);
                 a_lati = getLocs(1);
                 a_long = getLocs(2);
+
                 GeoReversa(Double.parseDouble(a_lati),Double.parseDouble(a_long));
             }
         });
@@ -264,6 +271,19 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
                 Log.d("question3",question3);
             }
         });
+
+
+        summar = rootView.findViewById(R.id.btnSumar);
+        summar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getContext(),"SUM: "+txtVentas.getText(),Toast.LENGTH_SHORT).show();
+                double valor = adapter.calculateTotalSales();
+                txtVentas.setText(String.valueOf(valor));
+
+            }
+        });
+
 
 
         return rootView;
@@ -382,6 +402,10 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
                     params.put("observaciones",observaciones);
                     params.put("longitud", finalA_lon);
                     params.put("latitud", finalA_lat);
+                    params.put("question1",question1);
+                    params.put("question2",question2);
+                    params.put("question3",question3);
+                    params.put("opcion_quiz", String.valueOf(opcion_quiz));
                     return params;
                 }
             };
@@ -411,6 +435,10 @@ public class FragmentTab1 extends Fragment implements PfAdapter.PfAdapterCallbac
                     txtObservaciones.setText("");
                     pro_polvos.clear();
                     retrieveData_pro("https://emaransac.com/mercapp/promoter/get_competitor_product.php","BATAN");
+                    question1="";
+                    question2="";
+                    question3="";
+                    opcion_quiz=5;
                     adapter.notifyDataSetChanged();
                 }
             });

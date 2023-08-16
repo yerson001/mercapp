@@ -149,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         username = getIntent().getStringExtra("username");
 
+
+        username = "promotor";
+
         //Toast.makeText(MainActivity.this,username,Toast.LENGTH_SHORT).show();
         // Crea un Bundle y coloca el valor de "username" en él
 

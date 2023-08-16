@@ -1,8 +1,6 @@
 package com.example.bottomnavigationwithdrawermenu.Promotor.Fragments;
-
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
@@ -22,17 +20,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bottomnavigationwithdrawermenu.Promotor.Adapters.PfAdapter;
 import com.example.bottomnavigationwithdrawermenu.Promotor.Adapters.PriceAdapter;
-import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.Frescos;
 import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.prices;
 import com.example.bottomnavigationwithdrawermenu.R;
 import com.example.bottomnavigationwithdrawermenu.Ubication.GpsTracker;
@@ -153,7 +149,7 @@ public class FragmentTab2 extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.recycler_price_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PriceAdapter(getContext(), pricesArrayList, pricesArrayList);
+        adapter = new PriceAdapter(getContext(), pricesArrayList);
         recyclerView.setAdapter(adapter);
 
         return rootView;
@@ -256,10 +252,8 @@ public class FragmentTab2 extends Fragment {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String id = object.getString("id");
                                     String name_product = object.getString("name_product");
-                                    String reference_code = object.getString("reference_code");
-                                    String barcode = object.getString("barcode");
                                     Log.d("Retrival 2 ", id + "  " + name_product);
-                                    pri = new prices(id, name_product, " ", " ", " ", " ");
+                                    pri = new prices(id, name_product,"0.0");
                                     pricesArrayList.add(pri);
                                 }
                                 adapter.notifyDataSetChanged(); // Notificar cambios en el adaptador después de agregar los elementos
@@ -281,52 +275,116 @@ public class FragmentTab2 extends Fragment {
 
 
     private void insertData_prod() {
-            final String marca = product_marca;
-            final String ubicacion = direccion.getText().toString().trim();//obligatorio
-            final String cliente_ = cliente.getText().toString().trim();//opcional
-            final String observaciones = obser.getText().toString().trim();//opcional
-            //List<Frescos> lista = adapter.getPfList_r();
-            List<prices> lista = adapter.getCheckedItems();
+        try { //Request Permission if not permitted
+            if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        final String marca = product_marca;
+        final String ubicacion = direccion.getText().toString().trim();//obligatorio
+        final String cliente_ = cliente.getText().toString().trim();//opcional
+        final String observaciones = obser.getText().toString().trim();//opcional
+
+
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("cargando...");
+
+        if (ubicacion.isEmpty()) {
+            Toast.makeText(getContext(), "Ingrese Ubicación", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (marca.isEmpty()) {
+            Toast.makeText(getContext(), "Ingrese Marca", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            List<prices> lista = adapter.getCheckedItemsWithPrices();
             String[] arraypolvos = new String[lista.size()];
             String[] arraypolvos1 = new String[lista.size()];
 
-/*
+
+            List<prices> checkedItemsWithPrices = adapter.getCheckedItemsWithPrices();
             int i = 0;
-            for (prices f : lista) {
-                arraypolvos[i] = f.getProducto();
+            for (prices item : checkedItemsWithPrices) {
+                Log.d("CheckedItemWithPrice", "ID: " + item.getId() + ", Name: " + item.getProducto() + ", Price: " + item.getPrecioPri());
+                arraypolvos[i] = item.getProducto();
+                arraypolvos1[i] = item.getPrecioPri();
                 i++;
             }
-
-            for (prices f : lista) {
-                arraypolvos1[i] = f.getPrecio();
-                i++;
-            }
-            JSONArray jsonArray = new JSONArray(Arrays.asList(arraypolvos));
-
-            JSONArray jsonArray1 = new JSONArray(Arrays.asList(arraypolvos1));
-
-            */
-
-
-        Toast.makeText(getContext(),lista.get(0).getProducto()+"  PRICE: "+lista.get(0).getPrecio(),Toast.LENGTH_SHORT).show();
-        Log.d("MY LIST: ",lista.get(0).getPrecio());
-
 
             String a_lat = "0";
             String a_lon = "0";
             a_lat = getLocs(1);
             a_lon = getLocs(2);
+            JSONArray jsonArray = new JSONArray(Arrays.asList(arraypolvos));
+
+            JSONArray jsonArray1 = new JSONArray(Arrays.asList(arraypolvos1));
 
 
             String finalA_lon = a_lon;
             String finalA_lat = a_lat;
+            StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/promoter/insert_price_report.php",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if (response.equalsIgnoreCase("Se guardo correctamente.")) {
+                                Toast.makeText(getContext(), "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+                                //mostrarToastPersonalizado();
+                                progressDialog.dismiss();
+                                //********************************* NO INTENT MAIN *************************************************
+                                //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                //finish();
+                            } else {
+                                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            }
+            ) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("location", ubicacion);
+                    params.put("client", cliente_);
+                    params.put("brand", marca);
+                    params.put("name", jsonArray.toString());
+                    params.put("price", jsonArray1.toString());
+                    params.put("observation", observaciones);
+                    params.put("longitud", finalA_lon);
+                    params.put("latitud", finalA_lat);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            requestQueue.add(request);
 
+            requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
+                @Override
+                public void onRequestFinished(Request<Object> request) {
+                    // Redirigir a PromotorActivity después de la inserción exitosa
+                    //***********************************we need try *********************************************************
+                    //Intent intent = new Intent(ProVMainActivity.this, getContext());
+                    //startActivity(intent);
+                    //finish();
 
-            //Log.d("Ubicacion",ubicacion);
-            //Log.d("marca",marca);
-            //Log.d("cliente_",cliente_);
-            //Log.d("observaciones",observaciones);
-            //Log.d("jsonArray",jsonArray.toString());
-            //Log.d("jsonArray",jsonArray1.toString());
+                    //direccion.setText("");
+                    product_marca = "";
+                    cliente.setText("");
+                    obser.setText("");
+                    pricesArrayList.clear();
+                    retrieveData_pro("https://emaransac.com/mercapp/promoter/get_competitor_product.php", product_marca);
+				adapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 }

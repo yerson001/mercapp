@@ -30,6 +30,7 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder> {
     private List<Frescos> pfList_r;
 
     private double accumulatedValue = 0.0;
+    private double total = 0.0;
 
     public PfAdapter(Context context, List<Frescos> pfList,List<Frescos> pfList_r) {
         this.context = context;
@@ -83,7 +84,7 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder> {
         } else {
             holder.counterSale = 0;
         }
-        holder.valueSale.setText(String.valueOf(holder.counterSale));
+        holder.valueSale.setText("");
 
 
 
@@ -154,7 +155,9 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder> {
                         int count = Integer.parseInt(valueCount);
                         double sale = Double.parseDouble(valueSale);
                         double result = count * sale;
+                        total+=result;
                         holder.venta.setText(String.valueOf(result));
+                        Toast.makeText(context,"sum: "+total,Toast.LENGTH_SHORT).show();
 
                         if (isChecked) {
                             accumulatedValue += result;
@@ -228,4 +231,19 @@ public class PfAdapter extends RecyclerView.Adapter<PfAdapter.ViewHolder> {
         this.callback = callback;
     }
 
+    private void calculateAndSetSaleValue(ViewHolder holder) {
+        String valueCount = holder.valueCount.getText().toString();
+        String valueSale = holder.valueSale.getText().toString();
+
+        if (!TextUtils.isEmpty(valueCount) && !TextUtils.isEmpty(valueSale)) {
+            int count = Integer.parseInt(valueCount);
+            double saleValue = Double.parseDouble(valueSale);
+            double itemTotal = count * saleValue;
+            holder.venta.setText(String.valueOf(itemTotal));
+        }
+    }
+
+    public double calculateTotalSales() {
+        return total;
+    }
 }
