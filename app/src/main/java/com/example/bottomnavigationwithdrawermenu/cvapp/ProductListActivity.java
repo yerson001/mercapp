@@ -1,4 +1,4 @@
-package com.example.bottomnavigationwithdrawermenu.Mercaderista;
+package com.example.bottomnavigationwithdrawermenu.cvapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -32,10 +32,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bottomnavigationwithdrawermenu.MainActivity;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Adapters.ProductAdapter;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity.Product;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Adapters.ProductAdapter;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Entity.Product;
 import com.example.bottomnavigationwithdrawermenu.R;
-import com.example.bottomnavigationwithdrawermenu.Ubication.GpsTracker;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,7 +65,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductAda
     TextView txtTienda,txt_count,txt_total;
     int suma;
 
-    GpsTracker gpsTracker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -302,8 +302,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductAda
         Log.d("tienda: ", sucursal_name);
         String a_lat = "0";
         String a_lon = "0";
-        a_lat = getLocs(1);
-        a_lon = getLocs(2);
         String count = suma+1-recyclerView.getAdapter().getItemCount()+"";
         String ipAddress = getDeviceIpAddress();
 
@@ -313,40 +311,20 @@ public class ProductListActivity extends AppCompatActivity implements ProductAda
 
         insertar(id,"ean",tienda_name,sucursal_name,nombre,inventario,pedido,a_lon,a_lat,ipAddress,id);
         txt_count.setText(count);
-        gpsTracker.stopUsingGPS();
+
     }
 
     public void mostrarDetalle() {
         String a_lat = "0";
         String a_lon = "0";
-        a_lat = getLocs(1);
-        a_lon = getLocs(2);
+
         //Toast.makeText(this, "Lat: "+a_lat+" Log: "+a_lon, Toast.LENGTH_SHORT).show();
     }
     public void scanner() {
         Toast.makeText(this, "Este es el scanner", Toast.LENGTH_SHORT).show();
     }
 
-    public String getLocs(int ID) { //Get Current Lat and Lon 1=lat, 2=lon
-        String asd_lat = "";
-        String asd_lon = "";
-        gpsTracker = new GpsTracker(ProductListActivity.this);
-        if (gpsTracker.canGetLocation()) {
-            double latitude = gpsTracker.getLatitude();
-            double longitude = gpsTracker.getLongitude();
-            asd_lat = String.valueOf(latitude);
-            asd_lon = String.valueOf(longitude);
-        } else {
-            gpsTracker.showSettingsAlert();
-        }
-        if (ID == 1) {
-            return asd_lat;
-        } else if (ID == 2) {
-            return asd_lon;
-        } else {
-            return "0";
-        }
-    }
+
 
     private String getDeviceIpAddress() {
         try {

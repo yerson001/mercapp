@@ -30,6 +30,12 @@
         android:theme="@style/Theme.BottomNavigationWithDrawerMenu"
         tools:targetApi="31">
         <activity
+            android:name=".cvapp.RankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cvapp.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Promotor.UploadActivity"
             android:exported="false" />
         <activity
@@ -39,20 +45,20 @@
             android:name=".Promotor.SummaryProActivity"
             android:exported="false" />
         <activity
-            android:name=".Mercaderista.SummaryActivity"
+            android:name=".cvapp.SummaryActivity"
             android:exported="false" />
         <activity
-            android:name=".Mercaderista.ProductListActivity"
+            android:name=".cvapp.ProductListActivity"
             android:exported="false" />
         <activity
             android:name=".Promotor.PromotorActivity"
             android:exported="false" />
-
-
+        <!--
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,22 +69,16 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
-        <!--
+        -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        -->
-
-
 
         <receiver android:name=".Notification.Receiver" />
         <receiver android:name=".Notification.ReceiverDismiss" />

@@ -1,4 +1,4 @@
-package com.example.bottomnavigationwithdrawermenu.Mercaderista.Adapters;
+package com.example.bottomnavigationwithdrawermenu.cvapp.Adapters;
 import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity.Product;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Entity.Product;
 import com.example.bottomnavigationwithdrawermenu.R;
 
 import java.util.ArrayList;

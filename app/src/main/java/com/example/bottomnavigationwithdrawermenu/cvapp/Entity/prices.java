@@ -1,4 +1,4 @@
-package com.example.bottomnavigationwithdrawermenu.Promotor.Entities;
+package com.example.bottomnavigationwithdrawermenu.cvapp.Entity;
 
 public class prices {
 

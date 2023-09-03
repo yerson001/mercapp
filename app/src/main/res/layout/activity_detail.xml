@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cvapp.SummaryActivity"
+    tools:context=".cvapp.DetailActivity"
     android:orientation="horizontal">
+
 
     <LinearLayout
         android:layout_width="0dp"
@@ -30,12 +31,12 @@
 
         <!-- Mitad izquierda: RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_summary"
-        android:layout_marginTop="10dp"
+            android:id="@+id/recycler_price_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </LinearLayout>
+
+
 
     <!-- Mitad derecha: LinearLayout -->
     <LinearLayout
@@ -104,72 +105,70 @@
                 app:maxImageSize="18dp" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="130dp"
-                android:hint="       Seleccione el Área"
-                android:textSize="10sp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+                android:height="90dp"
+                android:layout_marginTop="120dp"
+                android:padding="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/observaciones_txt"
+                android:textSize="12dp"
+                android:hint=""
+                android:layout_height="wrap_content"
+                android:background="@drawable/snippervo"
+                />
 
-                <AutoCompleteTextView
-                    android:id="@+id/area_tab_txt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:layout_marginStart="20dp"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/snippervo" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="210dp"
-                android:hint="       Seleccione el Trabajo"
-                android:textSize="10sp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
-
-                <AutoCompleteTextView
-                    android:id="@+id/trabajo_tab_txt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:layout_marginStart="20dp"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/snippervo" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+            <EditText
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:id="@+id/direccion_txt"
+                android:textSize="14dp"
+                android:hint="  Escribe tu mensage ... "
+                android:imeOptions="actionNext"
+                android:inputType="textCapCharacters"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="260dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/snippervo"
+                android:drawableStart="@drawable/baseline_send_24" />
 
             <Button
                 android:id="@+id/btn_guardar_ty"
-                android:layout_width="match_parent"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="330dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="GUARDAR REPORTE"
+                android:layout_marginTop="260dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="130dp"
+                android:text="Enviar"
+                android:textSize="10dp"
+                />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_finalizar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="390dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="130dp"
+                android:backgroundTint="#F80707"
+                android:text="Finalizar"
+                android:textSize="15dp"
                 />
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/idTVSelectedDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="Fecha"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+
+
     </LinearLayout>
+
+
 </LinearLayout>

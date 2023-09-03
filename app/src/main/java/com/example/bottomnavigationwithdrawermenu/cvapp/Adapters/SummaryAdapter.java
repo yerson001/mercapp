@@ -1,4 +1,5 @@
-package com.example.bottomnavigationwithdrawermenu.Promotor.Adapters;
+package com.example.bottomnavigationwithdrawermenu.cvapp.Adapters;
+
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,18 +15,18 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.bottomnavigationwithdrawermenu.Promotor.Entities.detalle;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Entity.Summary;
 import com.example.bottomnavigationwithdrawermenu.R;
 
 import java.util.ArrayList;
 
-public class SummaryProAdapter extends RecyclerView.Adapter<SummaryProAdapter.ViewHolder> {
+public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.ViewHolder> {
     private final Context context;
-    private final ArrayList<detalle> summaryArrayList;
+    private final ArrayList<Summary> summaryArrayList;
     private int selectedItem = RecyclerView.NO_POSITION;
     private OnItemClickListener onItemClickListener;
 
-    public SummaryProAdapter(Context context, ArrayList<detalle> summaryArrayList) {
+    public SummaryAdapter(Context context, ArrayList<Summary> summaryArrayList) {
         this.context = context;
         this.summaryArrayList = summaryArrayList;
     }
@@ -45,26 +46,25 @@ public class SummaryProAdapter extends RecyclerView.Adapter<SummaryProAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_reporte, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.summary_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        detalle summary = summaryArrayList.get(position);
+        Summary summary = summaryArrayList.get(position);
 
         holder.txtid.setText(summary.getId());
+        holder.txtProducto.setText(summary.getProducto());
+        holder.txtTienda.setText(summary.getTienda());
+        holder.txtPedido.setText(summary.getPedido());
+        holder.txtInventario.setText(summary.getInventario());
         holder.fecha.setText(summary.getFecha());
-        holder.txtDistribuidor.setText(summary.getDistribuidor());
-        holder.txtCliente.setText(summary.getCliente());
-        holder.txtDireccion.setText(summary.getDirrecion());
-        holder.txtTelefono.setText(summary.getTelefono());
 
-/*
         Glide.with(context)
-                .load(summary.getImg())
+                .load(R.drawable.baseline_person_add_alt_1_24)
                 .into(holder.imageView);
-*/
+
         if (selectedItem == position) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_color));
         } else {
@@ -92,23 +92,24 @@ public class SummaryProAdapter extends RecyclerView.Adapter<SummaryProAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtid;
+        TextView txtTienda;
+        TextView txtProducto;
+        TextView txtPedido;
+        TextView txtInventario;
         TextView fecha;
-        TextView txtDistribuidor;
-        TextView txtCliente;
-        TextView txtDireccion;
-        TextView txtTelefono;
         ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtid = itemView.findViewById(R.id.id_txt_pro);
-            txtDistribuidor = itemView.findViewById(R.id.distribuidor_txt_pro);
-            txtCliente = itemView.findViewById(R.id.cliente_txt_pro);
-            txtDireccion = itemView.findViewById(R.id.direccion_txt_pro);
-            txtTelefono = itemView.findViewById(R.id.telefono_txt_pro);
-            fecha = itemView.findViewById(R.id.fecha_txt_pro);
-           // imageView = itemView.findViewById(R.id.imageView);
+            txtid = itemView.findViewById(R.id.id);
+            txtTienda = itemView.findViewById(R.id.tienda);
+            txtProducto = itemView.findViewById(R.id.producto);
+            txtPedido = itemView.findViewById(R.id.diferencia);
+            txtInventario = itemView.findViewById(R.id.stock);
+
+            fecha = itemView.findViewById(R.id.fecha);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 

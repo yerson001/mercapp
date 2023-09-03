@@ -4,12 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -18,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bottomnavigationwithdrawermenu.MainActivity;
 import com.example.bottomnavigationwithdrawermenu.MenuAdapter;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.SummaryActivity;
-import com.example.bottomnavigationwithdrawermenu.Promotor.PromotorActivity;
-import com.example.bottomnavigationwithdrawermenu.Promotor.SummaryPricActivity;
-import com.example.bottomnavigationwithdrawermenu.Promotor.SummaryProActivity;
+import com.example.bottomnavigationwithdrawermenu.cvapp.SummaryActivity;
+
 import com.example.bottomnavigationwithdrawermenu.R;
 import com.example.bottomnavigationwithdrawermenu.itemMenu;
 import java.util.ArrayList;
@@ -42,8 +36,8 @@ public class HomeFragment extends Fragment implements MenuAdapter.OnItemClickLis
         MainActivity activity = (MainActivity) getActivity();
 
         // Acceder al TextView desde la actividad
-        TextView txtUsuario = activity.findViewById(R.id.txt_usuario);
-        user = txtUsuario.getText().toString();
+        //TextView txtUsuario = activity.findViewById(R.id.txt_usuario);
+        //user = txtUsuario.getText().toString();
         //txtUsuario.setText("¡Hola, fragmento!");
 
 
@@ -87,8 +81,8 @@ public class HomeFragment extends Fragment implements MenuAdapter.OnItemClickLis
             progressDialog.setCancelable(false);
             progressDialog.show();
             // Aquí puedes abrir una nueva actividad si se selecciona la opción "PROMOTOR VENTAS"
-            Intent intent = new Intent(requireContext(), PromotorActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(requireContext(), PromotorActivity.class);
+            //startActivity(intent);
         } else if (option.getText().equals("INVENTARIO")&& user.equals("mercaderista")) {
             // Aquí puedes abrir una nueva actividad si se selecciona la opción "INVENTARIO"
             ProgressDialog progressDialog = new ProgressDialog(requireContext());
@@ -102,8 +96,8 @@ public class HomeFragment extends Fragment implements MenuAdapter.OnItemClickLis
             progressDialog.setMessage("Cargando...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            Intent intent = new Intent(requireContext(), SummaryProActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(requireContext(), SummaryProActivity.class);
+            //startActivity(intent);
         } else if (option.getText().equals("AJUSTES")) {
             Toast.makeText(requireContext(), "opciones!", Toast.LENGTH_SHORT).show();
         } else if (option.getText().equals("REPORTE PRECIOS") && user.equals("promotor")) {
@@ -111,8 +105,8 @@ public class HomeFragment extends Fragment implements MenuAdapter.OnItemClickLis
             progressDialog.setMessage("Cargando...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            Intent intent = new Intent(requireContext(), SummaryPricActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(requireContext(), SummaryPricActivity.class);
+            //startActivity(intent);
         }
         else{
             Toast.makeText(getContext(),"Acceso Restringido",Toast.LENGTH_SHORT).show();

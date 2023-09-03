@@ -2,17 +2,22 @@
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+
     android:layout_height="60dp">
 
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="55dp"
-        android:src="@drawable/ic_launcher_background" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/baseline_person_add_alt_1_24" />
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_marginEnd="10dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp">
 
@@ -43,7 +48,8 @@
                 android:layout_marginStart="5dp"
                 android:text="TUCO SAZON SALSA FRASCO X 70 GRS"
                 android:textColor="@color/black"
-                android:textSize="12dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
                 android:translationX="2dp"
                 android:maxLines="2"
                 android:ellipsize="end" />
@@ -64,7 +70,7 @@
                 android:text="Emmel"
                 android:lineBreakStyle="loose"
                 android:textColor="@color/grey"
-                android:textSize="8sp"
+                android:textSize="10sp"
                 android:textStyle="bold"
                 />
         </LinearLayout>
@@ -78,7 +84,7 @@
                 android:id="@+id/fecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="7dp"
                 android:gravity="center"
                 android:text="2023-05-17"
@@ -94,7 +100,7 @@
             android:layout_marginTop="36dp"
             android:imeOptions="actionNext"
             android:text="70"
-            android:layout_marginEnd="70dp"
+            android:layout_marginEnd="100dp"
             android:textColor="#A10404"
             android:textSize="10sp"
             android:layout_alignParentRight="true"
@@ -104,28 +110,27 @@
             android:id="@+id/txtpedido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:imeOptions="actionNext"
-            android:text="pedido"
             android:layout_marginEnd="70dp"
+            android:imeOptions="actionNext"
+            android:text="Postulaciones"
             android:textColor="#A10404"
-            android:textSize="8sp"
-            android:layout_alignParentRight="true"
-            />
+            android:textSize="10sp" />
 
 
         <TextView
             android:id="@+id/txtinventario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:imeOptions="actionNext"
-            android:text="inventario"
-            android:layout_marginEnd="15dp"
+            android:text="Ranking"
+            android:layout_marginEnd="10dp"
             android:textColor="#42A34F"
-            android:textSize="8sp"
+            android:textSize="10sp"
             android:layout_alignParentRight="true"
             />
 
@@ -151,10 +156,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="30dp"
             android:text="45"
             android:textColor="#042203"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:layout_alignParentRight="true"

@@ -10,45 +10,12 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
+
+
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:layout_gravity="center_vertical|bottom"
-            android:background="@color/teal_200"
-            app:fabCradleMargin="15dp"
-            app:fabCradleRoundedCornerRadius="50dp"
-            android:backgroundTint="#E1DEE8"
-            >
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                app:elevation="0dp"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/bottom_nav_menu" />
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_person_add_alt_1_24"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/border"
-            app:layout_anchor="@id/bottomAppBar"
-            app:maxImageSize="40dp"
-            app:tint="#0B3E8E"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circular" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -94,22 +61,55 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-            <FrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <!-- Otros elementos que puedas tener dentro del FrameLayout, si los hay -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_usuario"
+                    android:id="@+id/titulo_ofertas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="USUARIO"
-                    android:visibility="invisible"
+                    android:text="Listado de Ofertas de Trabajo"
+                    android:textSize="32sp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/myregister"
+                    android:layout_marginTop="75dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     />
-<!-- android:visibility="invisible" -->
-            </FrameLayout>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="60dp"
+                    android:layout_marginEnd="50dp"
+                    android:rotationX="0"
+                    app:backgroundTint="@color/green"
+                    app:elevation="10dp"
+                    app:fabSize="normal"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBottom="@id/myregister"
+                    app:srcCompat="@drawable/baseline_add_24" />
+
+
+            </RelativeLayout>
+
+
+
+
+
+
+
 
         </LinearLayout>
 
@@ -125,4 +125,36 @@
         app:itemTextColor="@color/black"
         app:menu="@menu/nav_menu" />
 
+
+
+
+    <!-- Agregar el botón flotante de "Agregar" -->
+
+
+
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
+
+
+<!--
+
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+<TextView
+android:id="@+id/txt_usuario"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="USUARIO"
+android:visibility="invisible"
+    />
+
+    </FrameLayout>
+
+-->

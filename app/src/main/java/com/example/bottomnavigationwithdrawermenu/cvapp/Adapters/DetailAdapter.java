@@ -1,4 +1,4 @@
-package com.example.bottomnavigationwithdrawermenu.Mercaderista.Adapters;
+package com.example.bottomnavigationwithdrawermenu.cvapp.Adapters;
 
 
 import android.app.ProgressDialog;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,19 +22,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity.Register;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Entity.Register;
 import com.example.bottomnavigationwithdrawermenu.R;
-import com.example.bottomnavigationwithdrawermenu.Ubication.GpsTracker;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailViewHolder> {
     private Context context;
     private List<Register> detalleList;
+    private OnItemClickListener listener;
 
-    GpsTracker gpsTracker;
+
 
 
     private ButtonClickListener buttonClickListener;
@@ -73,32 +75,31 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
                 // Obtener el valor de tvID
                 String tvIDValue = detalle.getId();
-                String tvIDLocal = detalle.getLocal();
-                String tvIDMotivo = detalle.getMotivo();
-                String usertxt = detalle.getUser();
+                updateData(tvIDValue);
+            }
+        });
 
-                // Llamar al método onButtonClick de la interfaz
-                if (buttonClickListener != null) {
-                    buttonClickListener.onButtonClick(tvIDValue,tvIDLocal,tvIDMotivo);
+        holder.btnInciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.btnFinalizar.setBackgroundColor(Color.parseColor("#FF01579B"));
+                holder.btnFinalizar.setTextColor(Color.RED);
+                holder.btnFinalizar.setText("SE INICIO");
+
+                // Obtener el valor de tvID
+                String tvIDValue = detalle.getId();
+                updateDatael(tvIDValue);
+            }
+        });
+
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onItemClick(position);
                 }
-
-                // Actualizar el estado de isFinalizado en el modelo
-                detalle.setFinalizado(true);
-
-                // Deshabilitar el botón después de hacer clic
-                holder.btnFinalizar.setEnabled(false);
-
-                //Toast.makeText(context,tvIDValue,Toast.LENGTH_SHORT).show();
-                String url1 = "https://emaransac.com/mercapp/merchant/update_visit_record.php";
-                String url2 = "https://emaransac.com/mercapp/promoter/update_visit_record.php";
-                if(usertxt.equals("promotor")){
-                    updateDatapro(tvIDValue,url1);
-                    //Toast.makeText(context,tvIDValue+" "+usertxt,Toast.LENGTH_SHORT).show();
-                } else if (usertxt.equals("mercaderista")) {
-                    updateData(tvIDValue,url2);
-                    //Toast.makeText(context,tvIDValue+" "+usertxt,Toast.LENGTH_SHORT).show();
-                }
-
             }
         });
     }
@@ -118,6 +119,8 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         TextView tvtiempo;
         TextView tvestado;
         Button btnFinalizar; // Add the button reference
+        Button btnInciar; // Add the button reference
+        ProgressBar progressBar;
 
         DetailViewHolder(View itemView) {
             super(itemView);
@@ -127,7 +130,9 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
             tvMotivo = itemView.findViewById(R.id.motivo_txt_r);
             tvFechafin = itemView.findViewById(R.id.fecha_txt_rn);
             btnFinalizar = itemView.findViewById(R.id.btn_finalizar); // Initialize the button reference
+            btnInciar = itemView.findViewById(R.id.btn_iniciar);
             tvtiempo = itemView.findViewById(R.id.horas_txt);
+            progressBar = itemView.findViewById(R.id.progressBar);
             tvestado = itemView.findViewById(R.id.estado_txt);
         }
     }
@@ -138,37 +143,20 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     public interface ButtonClickListener {
         void onButtonClick(String tvID,String local,String motivo);
     }
-
-    private void updateData(String id,String url) {
-
-
-        //Toast.makeText(Register_Activity.this,mylocal+" "+mymotivo,Toast.LENGTH_LONG).show();
-
+    private void updateData(String id) {
         final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("cargando...");
-
-
+        progressDialog.setMessage("Cargando...");
         progressDialog.show();
 
-        String a_lat = "0";
-        String a_lon = "0";
-        a_lat = getLocs(1);
-        a_lon = getLocs(2);
-
-
-        String finalA_lon = a_lon;
-        String finalA_lat = a_lat;
-        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/update_visit_record.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/actualizar.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.equalsIgnoreCase("Se guardo correctamente.")){
-                            //Toast.makeText(Register_Activity.this, "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+                        if (response.equalsIgnoreCase("Se guardó correctamente.")) {
+                            // La operación se realizó correctamente
                             progressDialog.dismiss();
-                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            //finish();
-                        }
-                        else{
+                            // Puedes realizar alguna acción adicional aquí si es necesario
+                        } else {
                             Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
@@ -179,64 +167,33 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
                 Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
-        }
-        ){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String,String>();
-
-                //Log.d("---REPORTE--DE--PRECIOS---", observacines_+">>>>>>>>>>>> ");
-                params.put("id",id);
-                params.put("flog", finalA_lon);
-                params.put("flat", finalA_lat);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", id);
                 return params;
             }
         };
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
-
-        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
-
-            @Override
-            public void onRequestFinished(Request<Object> request) {
-                //por ahora
-                //RegisterList.clear();
-                //retrieveData();
-            }
-        });
     }
 
-
-    private void updateDatapro(String id,String url) {
-
-
-        //Toast.makeText(Register_Activity.this,mylocal+" "+mymotivo,Toast.LENGTH_LONG).show();
-
+    private void updateDatael(String id) {
         final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("cargando...");
-
-
+        progressDialog.setMessage("Cargando...");
         progressDialog.show();
 
-        String a_lat = "0";
-        String a_lon = "0";
-        a_lat = getLocs(1);
-        a_lon = getLocs(2);
-
-
-        String finalA_lon = a_lon;
-        String finalA_lat = a_lat;
-        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/promoter/update_visit_record.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/Iniciar.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.equalsIgnoreCase("Se guardo correctamente.")){
-                            //Toast.makeText(Register_Activity.this, "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+                        if (response.equalsIgnoreCase("Se guardó correctamente.")) {
+                            // La operación se realizó correctamente
                             progressDialog.dismiss();
-                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            //finish();
-                        }
-                        else{
+                            // Puedes realizar alguna acción adicional aquí si es necesario
+                        } else {
                             Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
@@ -247,51 +204,30 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
                 Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
-        }
-        ){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String,String>();
-
-                //Log.d("---REPORTE--DE--PRECIOS---", observacines_+">>>>>>>>>>>> ");
-                params.put("id",id);
-                params.put("flog", finalA_lon);
-                params.put("flat", finalA_lat);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", id);
                 return params;
             }
         };
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
-
-        requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
-
-            @Override
-            public void onRequestFinished(Request<Object> request) {
-                //por ahora
-                //RegisterList.clear();
-                //retrieveData();
-            }
-        });
     }
 
-    public String getLocs(int ID) { //Get Current Lat and Lon 1=lat, 2=lon
-        String asd_lat = "";
-        String asd_lon = "";
-        gpsTracker = new GpsTracker(context);
-        if (gpsTracker.canGetLocation()) {
-            double latitude = gpsTracker.getLatitude();
-            double longitude = gpsTracker.getLongitude();
-            asd_lat = String.valueOf(latitude);
-            asd_lon = String.valueOf(longitude);
-        } else {
-            gpsTracker.showSettingsAlert();
-        }
-        if (ID == 1) {
-            return asd_lat;
-        } else if (ID == 2) {
-            return asd_lon;
-        } else {
-            return "0";
-        }
+
+
+
+
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }
+

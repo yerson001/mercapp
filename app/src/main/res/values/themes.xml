@@ -12,7 +12,7 @@
 
     </style>
     <style name="Base.Theme.BottomNavigationWithDrawerMenu" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/lavender</item><!-- este es el combio de la parte superior -->
+        <item name="colorPrimary">#3F51B5</item><!-- este es el combio de la parte superior -->
         <item name="colorPrimaryVariant">#3A66AC</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/teal_200</item>

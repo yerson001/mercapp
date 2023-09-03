@@ -1,6 +1,6 @@
-package com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity;
+package com.example.bottomnavigationwithdrawermenu.cvapp.Entity;
 
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.SummaryActivity;
+import com.example.bottomnavigationwithdrawermenu.cvapp.SummaryActivity;
 
 import java.util.ArrayList;
 

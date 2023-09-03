@@ -1,4 +1,4 @@
-package com.example.bottomnavigationwithdrawermenu.Mercaderista;
+package com.example.bottomnavigationwithdrawermenu.cvapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,10 @@ import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,8 +33,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bottomnavigationwithdrawermenu.MainActivity;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Adapters.SummaryAdapter;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity.Summary;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Adapters.SummaryAdapter;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Entity.Summary;
 import com.example.bottomnavigationwithdrawermenu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -47,20 +51,53 @@ public class SummaryActivity extends AppCompatActivity {
 
 
     private RecyclerView recyclerView;
+
+    String[] TipoEnvase = {
+            "Recursos Humanos (RRHH)",
+            "Ventas y Marketing",
+            "Producción o Manufactura",
+            "Finanzas y Contabilidad",
+            "Tecnología de la Información (TI)",
+            "Logística y Cadena de Suministro",
+            "Administración y Dirección General",
+            "Atención al Cliente",
+            "Calidad y Control de Calidad",
+            "Salud y Seguridad Laboral",
+            "Mercadotecnia y Publicidad",
+            "Gestión de Proyectos",
+            "Educación y Formación"
+    };
+
+
+    String[] trabajo = {
+            "Programador de videojuegos ",
+            "Programador fullstack",
+            "Profesor de matematicas"
+    };
+
+    AutoCompleteTextView tipoenvase;
+    ArrayAdapter<String> adaptertipoenvase;
+
+    AutoCompleteTextView tipotrabajo;
+    ArrayAdapter<String> adaptertipotrabajo;
+
     private Summary summary;
     private SummaryAdapter summaryAdapter;
 
     private TextView selectedDateTV;
+    String tabtipoenvase,tabtrabajo;
     public static ArrayList<Summary> SumaryArrayList = new ArrayList<>();
 
-    String url = "https://emaransac.com/mercapp/merchant/product_summary.php";
+    String url = "https://emaransac.com/mercapp/merchant/listar.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
+        tabtipoenvase= " ";
+        tabtrabajo=" ";
 
-        retrieveData(url);
+        //retrieveData(url);
         SummaryAdapter adapter = new SummaryAdapter(this, SumaryArrayList);
         adapter.setOnItemClickListener(new SummaryAdapter.OnItemClickListener() {
             @Override
@@ -91,6 +128,46 @@ public class SummaryActivity extends AppCompatActivity {
         selectedDateTV = findViewById(R.id.idTVSelectedDate);
 
         // Agrega el listener al botón
+
+
+
+        tipoenvase = findViewById(R.id.area_tab_txt);
+        adaptertipoenvase = new ArrayAdapter<>(SummaryActivity.this, R.layout.distrib_item, TipoEnvase);
+        tipoenvase.setAdapter(adaptertipoenvase);
+
+
+        tipotrabajo = findViewById(R.id.trabajo_tab_txt);
+        adaptertipotrabajo = new ArrayAdapter<>(SummaryActivity.this, R.layout.distrib_item, trabajo);
+        tipotrabajo.setAdapter(adaptertipotrabajo);
+
+
+        tipoenvase.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                tabtipoenvase = (String) parent.getItemAtPosition(position);
+            }
+        });
+
+        tipotrabajo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                tabtrabajo = (String) parent.getItemAtPosition(position);
+                retrieveData(url);
+            }
+        });
+
+        Button Guardar = findViewById(R.id.btn_guardar_ty);
+
+        Guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertMarca(tabtipoenvase,tabtrabajo);
+                Intent intent = new Intent(SummaryActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         FloatingActionButton btn2 = findViewById(R.id.btn1_cal);
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -206,13 +283,13 @@ public class SummaryActivity extends AppCompatActivity {
                             if (exito.equals("1")) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    String img = object.getString("imagen");
+                                    String img = "0";
                                     String id = object.getString("id");
-                                    String tienda = object.getString("tienda");
-                                    String sucursal = object.getString("sucursal");
-                                    String producto = object.getString("producto");
-                                    String inventario = object.getString("inventario");
-                                    String pedido = object.getString("pedido");
+                                    String tienda = object.getString("email");
+                                    String sucursal = object.getString("plataforma");
+                                    String producto = object.getString("nombre");
+                                    String inventario = "0";
+                                    String pedido = "0";
                                     String fecha_string = object.getString("fecha");
 
                                     //Log.d("Retrival ", img + " " + id + " " + tienda + " " + producto + " " + inventario + " " + pedido + " " + fecha_string);
@@ -283,4 +360,61 @@ public class SummaryActivity extends AppCompatActivity {
         // Finalizar la actividad actual
         finish();
     }
+
+
+    private void insertMarca(String nombre,String ruc) {
+        final ProgressDialog progressDialog = new ProgressDialog(SummaryActivity.this);
+        progressDialog.setMessage("cargando...");
+
+        if(nombre.isEmpty()){
+            Toast.makeText(SummaryActivity.this, "Ingrese Área ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else{
+            StringRequest request = new StringRequest(Request.Method.POST, "https://emaransac.com/mercapp/merchant/insertar.php",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if (response.equalsIgnoreCase("Se guardo correctamente.")){
+                                progressDialog.dismiss();
+                                Toast.makeText(SummaryActivity.this, "Se guardo correctamente.", Toast.LENGTH_SHORT).show();
+
+                                // Redirige a MainActivity y cierra la actividad actual
+                                Intent intent = new Intent(SummaryActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish(); // Cierra la actividad actual (SummaryActivity)
+                            }
+                            else{
+                                Toast.makeText(SummaryActivity.this, response, Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(SummaryActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            }
+            ){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<String,String>();
+                    params.put("area_de_empresa",nombre);
+                    params.put("cabezera",ruc);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(SummaryActivity.this);
+            requestQueue.add(request);
+
+            requestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
+                @Override
+                public void onRequestFinished(Request<Object> request) {
+                }
+            });
+        }
+    }
+
+
 }

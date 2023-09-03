@@ -1,4 +1,4 @@
-package com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity;
+package com.example.bottomnavigationwithdrawermenu.cvapp.Entity;
 
 
 public class Register {

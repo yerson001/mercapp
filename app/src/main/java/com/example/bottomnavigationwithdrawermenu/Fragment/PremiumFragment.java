@@ -1,10 +1,11 @@
 package com.example.bottomnavigationwithdrawermenu.Fragment;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -18,9 +19,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bottomnavigationwithdrawermenu.MainActivity;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Adapters.DetailAdapter;
-import com.example.bottomnavigationwithdrawermenu.Mercaderista.Entity.Register;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Adapters.DetailAdapter;
+import com.example.bottomnavigationwithdrawermenu.cvapp.Entity.Register;
+import com.example.bottomnavigationwithdrawermenu.cvapp.SummaryActivity;
 import com.example.bottomnavigationwithdrawermenu.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,8 +36,7 @@ public class PremiumFragment extends Fragment implements DetailAdapter.ButtonCli
     private RecyclerView recyclerView;
     Register reg;
     DetailAdapter adapter_;
-    String urlmercad = "https://emaransac.com/mercapp/merchant/show_visit_record.php";
-    String urlpromot = "https://emaransac.com/mercapp/promoter/show_visit_record.php";
+    String urlmercad = "https://emaransac.com/mercapp/merchant/trabajo.php";
     String user="";
 
     @Override
@@ -51,14 +53,25 @@ public class PremiumFragment extends Fragment implements DetailAdapter.ButtonCli
         }
 
         MainActivity activity = (MainActivity) getActivity();
-        TextView txtUsuario = activity.findViewById(R.id.txt_usuario);
-        user = txtUsuario.getText().toString();
+        user = "mercaderista";
 
-        if(user.equals("promotor")){
-            retrieveData(urlpromot,user);
-        }else if(user.equals("mercaderista")){
-            retrieveData(urlmercad,user);
-        }
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProgressDialog progressDialog = new ProgressDialog(requireContext());
+                progressDialog.setMessage("Cargando...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                Intent intent = new Intent(requireContext(), SummaryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+        retrieveData(urlmercad,user);
 
         recyclerView = rootView.findViewById(R.id.myregister);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -66,11 +79,7 @@ public class PremiumFragment extends Fragment implements DetailAdapter.ButtonCli
         adapter_ = new DetailAdapter(requireContext(), RegisterList);
         recyclerView.setAdapter(adapter_);
         //adapter_.setButtonClickListener(this);
-        if(user.equals("promotor")){
-            retrieveData(urlpromot,user);
-        }else if(user.equals("mercaderista")){
-            retrieveData(urlmercad,user);
-        }
+        retrieveData(urlmercad,user);
 
 
         return rootView;
