@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // Configurar el texto del Toast
                                 TextView textView = toastLayout.findViewById(R.id.text_view);
                                 textView.setText("\n           ✅ Sesión Iniciada        \n");
-                                // Crear y mostrar el Toast personalizado
+                                  // Crear y mostrar el Toast personalizado
                                 Toast toast = new Toast(getApplicationContext());
                                 toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 40)
                                 ; // Establecer la posición en la parte superior y centrada
